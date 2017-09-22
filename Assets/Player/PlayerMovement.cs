@@ -34,7 +34,6 @@ public class PlayerMovement : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        body.velocity = new Vector3(0, body.velocity.y);
         transform.position += movement * speed * Time.fixedDeltaTime;
 
     }

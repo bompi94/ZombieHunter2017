@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+    [SerializeField]
+    float speed;
+
+    GameObject player;
+
+    private void Awake()
+    {
+        player = GameObject.FindObjectOfType<PlayerMovement>().gameObject; 
+    }
+
+	void FixedUpdate () {
+		transform.position += (player.transform.position - transform.position).normalized * speed * Time.fixedDeltaTime; 
 	}
 
 
@@ -19,6 +23,7 @@ public class Enemy : MonoBehaviour {
     {
         if(collision.GetComponent<Bullet>())
         {
+            collision.GetComponent<Bullet>().EnemyHit(); 
             Die(); 
         }
     }

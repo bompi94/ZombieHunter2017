@@ -30,6 +30,11 @@ public class Bullet : MonoBehaviour
             Dismiss();
     }
 
+    public void EnemyHit()
+    {
+        Dismiss(); 
+    }
+
     void Dismiss()
     {
         myPooler.GameObjectReturnsAvailable(gameObject);

@@ -10,11 +10,11 @@ public class Shooter : MonoBehaviour {
     [SerializeField]
     ObjectPooler bulletPooler;
 
-    Rigidbody2D body;
+    Rigidbody2D body; 
 
     private void Awake()
     {
-        body = GetComponent<Rigidbody2D>(); 
+        body = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame

@@ -7,13 +7,21 @@ public class ObjectPooler : MonoBehaviour {
     GameObject myObject;
 
     List<GameObject> Available = new List<GameObject>();
-    List<GameObject> NotAvailable = new List<GameObject>(); 
+    List<GameObject> NotAvailable = new List<GameObject>();
+
+    GameObject folder; 
+
+    private void Awake()
+    {
+        folder = new GameObject();
+        folder.name = myObject.name + "s"; 
+    }
 
     public GameObject GetObject()
     {
         if(Available.Count==0)
         {
-            GameObject b = Instantiate(myObject);
+            GameObject b = Instantiate(myObject,folder.transform);
             NotAvailable.Add(b);
             return b; 
         }

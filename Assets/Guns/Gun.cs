@@ -16,6 +16,10 @@ public class Gun : MonoBehaviour
 
     [SerializeField]
     float coolDown = 1;
+
+    [SerializeField]
+   protected int bullets; 
+
     float coolDownTimer; 
 
     protected bool canShoot = true; 
@@ -63,9 +67,20 @@ public class Gun : MonoBehaviour
             Vector3 dir = shootPos.position - transform.position;
             b.GetComponent<Bullet>().Fire(dir, bulletPooler);
             canShoot = false;
+            bullets--;
+            if (bullets == 0)
+            {
+                GunBreak();
+                return false;
+            }
             return true; 
         }
         return false; 
+    }
+
+    protected void GunBreak()
+    {
+        Destroy(gameObject); 
     }
 
     public Vector3 GetRecoilVector()

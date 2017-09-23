@@ -304,6 +304,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114758415094349294, guid: d0ddf0a0dbc2ee347a5c43e9ac752c52,
+        type: 2}
+      propertyPath: bullets
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d0ddf0a0dbc2ee347a5c43e9ac752c52, type: 2}
   m_IsPrefabParent: 0
@@ -391,21 +396,6 @@ Prefab:
     - target: {fileID: 4167976379231838, guid: e47b4e6bad8552b4299f554659b5d1e7, type: 2}
       propertyPath: m_RootOrder
       value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 212189631920597864, guid: e47b4e6bad8552b4299f554659b5d1e7,
-        type: 2}
-      propertyPath: m_Color.r
-      value: 0.034482718
-      objectReference: {fileID: 0}
-    - target: {fileID: 212189631920597864, guid: e47b4e6bad8552b4299f554659b5d1e7,
-        type: 2}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212189631920597864, guid: e47b4e6bad8552b4299f554659b5d1e7,
-        type: 2}
-      propertyPath: m_Color.b
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e47b4e6bad8552b4299f554659b5d1e7, type: 2}

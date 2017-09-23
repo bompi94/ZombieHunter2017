@@ -27,6 +27,14 @@ public class Shotgun : Gun {
             b2.GetComponent<Bullet>().Fire(dir2 , bulletPooler);
 
             canShoot = false;
+
+            bullets--;
+            if (bullets == 0)
+            {
+                GunBreak();
+                return false;
+            }
+
             return true;
         }
         return false;

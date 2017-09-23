@@ -14,6 +14,12 @@ public class Gun : MonoBehaviour
     [SerializeField]
     Transform shootPos;
 
+    [SerializeField]
+    float coolDown = 1;
+    float coolDownTimer; 
+
+    bool canShoot = true; 
+
     ObjectPooler bulletPooler;
 
     bool pickedUp = false;
@@ -25,8 +31,21 @@ public class Gun : MonoBehaviour
         GameObject go = new GameObject();
         go.transform.SetParent(gameObject.transform);
         go.AddComponent<ObjectPooler>();
-        go.GetComponent<ObjectPooler>().SetUp(bullet);
+        go.GetComponent<ObjectPooler>().SetUp(bullet, 10);
         bulletPooler = go.GetComponent<ObjectPooler>();   
+    }
+
+    private void Update()
+    {
+        if(!canShoot)
+        {
+            coolDownTimer += Time.deltaTime; 
+            if(coolDownTimer>=coolDown)
+            {
+                canShoot = true;
+                coolDownTimer = 0; 
+            }
+        }
     }
 
     public void SetRotation(float angle)
@@ -34,12 +53,18 @@ public class Gun : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
-    public void Shoot()
+    public bool Shoot()
     {
-        GameObject b = bulletPooler.GetObject();
-        b.transform.position = shootPos.position;
-        Vector3 dir = shootPos.position - transform.position;
-        b.GetComponent<Bullet>().Fire(dir, bulletPooler);
+        if (canShoot)
+        {
+            GameObject b = bulletPooler.GetObject();
+            b.transform.position = shootPos.position;
+            Vector3 dir = shootPos.position - transform.position;
+            b.GetComponent<Bullet>().Fire(dir, bulletPooler);
+            canShoot = false;
+            return true; 
+        }
+        return false; 
     }
 
     public Vector3 GetRecoilVector()

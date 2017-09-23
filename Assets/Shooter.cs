@@ -15,8 +15,9 @@ public class Shooter : MonoBehaviour
 
     protected void Shoot()
     {
-        gun.Shoot();
-        ApplyRecoil();
+        bool hasActuallyShot = gun.Shoot();
+        if (hasActuallyShot)
+            ApplyRecoil();
     }
 
     void ApplyRecoil()
@@ -32,8 +33,8 @@ public class Shooter : MonoBehaviour
         {
             if (g.CanBePicked())
             {
-                print("near"); 
-                nearGun = g; 
+                print("near");
+                nearGun = g;
             }
         }
     }
@@ -43,8 +44,8 @@ public class Shooter : MonoBehaviour
         Gun g = (collision.GetComponent<Gun>());
         if (g && g.Equals(nearGun))
         {
-            print("not near"); 
-            nearGun = null; 
+            print("not near");
+            nearGun = null;
         }
     }
 

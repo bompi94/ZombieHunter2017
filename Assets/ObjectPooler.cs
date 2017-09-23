@@ -9,11 +9,17 @@ public class ObjectPooler : MonoBehaviour {
     List<GameObject> NotAvailable = new List<GameObject>();
     GameObject folder; 
 
-    public void SetUp(GameObject objectToSpawn)
+    public void SetUp(GameObject objectToSpawn, int initialObjects = 0)
     {
         myObject = objectToSpawn; 
         folder = new GameObject();
         folder.name = myObject.name + "s";
+        for (int i = 0; i < initialObjects; i++)
+        {
+            GameObject b = Instantiate(myObject, folder.transform);
+            b.SetActive(false); 
+            Available.Add(b);
+        }
     }
 
     public GameObject GetObject()

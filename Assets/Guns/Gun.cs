@@ -6,21 +6,21 @@ public class Gun : MonoBehaviour
 {
 
     [SerializeField]
-    GameObject bullet;
+    protected GameObject bullet;
 
     [SerializeField]
-    float recoil;
+    protected float recoil;
 
     [SerializeField]
-    Transform shootPos;
+    protected Transform shootPos;
 
     [SerializeField]
     float coolDown = 1;
     float coolDownTimer; 
 
-    bool canShoot = true; 
+    protected bool canShoot = true; 
 
-    ObjectPooler bulletPooler;
+    protected ObjectPooler bulletPooler;
 
     bool pickedUp = false;
 
@@ -29,9 +29,10 @@ public class Gun : MonoBehaviour
     private void Awake()
     {
         GameObject go = new GameObject();
+        go.name = "gun pool"; 
         go.transform.SetParent(gameObject.transform);
         go.AddComponent<ObjectPooler>();
-        go.GetComponent<ObjectPooler>().SetUp(bullet, 10);
+        go.GetComponent<ObjectPooler>().SetUp(bullet);
         bulletPooler = go.GetComponent<ObjectPooler>();   
     }
 
@@ -53,7 +54,7 @@ public class Gun : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
-    public bool Shoot()
+    public virtual bool Shoot()
     {
         if (canShoot)
         {

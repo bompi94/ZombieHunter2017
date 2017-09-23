@@ -19,24 +19,23 @@ public class Bullet : MonoBehaviour
         myPooler = pooler;
     }
 
-    private void OnBecameInvisible()
-    {
-        Dismiss();
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.gameObject.GetComponent<PlayerMovement>())
+        if (!collision.gameObject.GetComponent<PlayerMovement>()
+            && !collision.gameObject.GetComponent<Bullet>())
+        {
             Dismiss();
+        }
     }
 
     public void EnemyHit()
     {
-        Dismiss(); 
+        Dismiss();
     }
 
     void Dismiss()
     {
+        body.velocity = Vector3.zero;
         myPooler.GameObjectReturnsAvailable(gameObject);
     }
 }

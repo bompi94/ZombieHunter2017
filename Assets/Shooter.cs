@@ -2,20 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Faction
+{
+    Good, Bad
+} 
+
 public class Shooter : MonoBehaviour
 {
     protected Gun gun;
     protected Rigidbody2D body;
     protected Gun nearGun;
+    public Faction myFaction; 
 
-    private void Awake()
+    protected virtual void Awake()
     {
         body = GetComponent<Rigidbody2D>();
     }
 
     protected void Shoot()
     {
-        bool hasActuallyShot = gun.Shoot();
+        bool hasActuallyShot = gun.Shoot(myFaction);
         if (hasActuallyShot)
             ApplyRecoil();
     }
@@ -72,12 +78,15 @@ public class Shooter : MonoBehaviour
         }
     }
 
-    protected void LeaveGun()
+    public void LeaveGun()
     {
         print("leave");
-        GameObject gunGameObject = gun.gameObject;
-        gunGameObject.transform.SetParent(null);
-        gun.Leaved();
-        gun = null;
+        if (gun)
+        {
+            GameObject gunGameObject = gun.gameObject;
+            gunGameObject.transform.SetParent(null);
+            gun.Leaved();
+            gun = null;
+        }
     }
 }

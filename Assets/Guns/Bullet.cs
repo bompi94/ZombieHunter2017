@@ -14,11 +14,14 @@ public class Bullet : MonoBehaviour
     ObjectPooler myPooler;
     int damages;
 
-    public void Fire(Vector2 direction, ObjectPooler pooler, int damages)
+    Faction faction;
+
+    public void Fire(Vector2 direction, ObjectPooler pooler, int damages, Faction faction)
     {
         body.velocity = direction * bulletSpeed;
         myPooler = pooler;
-        this.damages = damages; 
+        this.damages = damages;
+        this.faction = faction;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -26,7 +29,8 @@ public class Bullet : MonoBehaviour
         GameObject other = collision.gameObject;
         if (other.GetComponent<Health>())
         {
-            other.GetComponent<Health>().TakeDamage(damages); 
+            if (other.GetComponent<Shooter>().myFaction != faction)
+                other.GetComponent<Health>().TakeDamage(damages);
         }
         Dismiss();
     }

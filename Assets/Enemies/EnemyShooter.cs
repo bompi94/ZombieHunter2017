@@ -9,10 +9,12 @@ public class EnemyShooter : Shooter
     EnemyMovement movement;
     GameObject player;
 
-    private void Awake()
+    protected override void Awake()
     {
         movement = GetComponent<EnemyMovement>();
         player = FindObjectOfType<PlayerMovement>().gameObject;
+        myFaction = Faction.Bad;
+        base.Awake();
     }
 
     private void Update()
@@ -66,7 +68,7 @@ public class EnemyShooter : Shooter
     {
         movement.SetDestination(player.transform.position);
         gun.SetRotation(GetToPlayerRotation());
-        gun.Shoot();
+        gun.Shoot(myFaction);
     }
 
     float GetToPlayerRotation()

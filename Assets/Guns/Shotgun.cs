@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Shotgun : Gun {
 
-    public override bool Shoot()
+    public override bool Shoot(Faction faction)
     {
         if (canShoot)
         {
@@ -16,15 +16,15 @@ public class Shotgun : Gun {
             b1.transform.position = shootPos.position;
             b2.transform.position = shootPos.position;
 
-            float angle = 20;
+            float angle = 10;
 
             Vector2 dir = shootPos.position - transform.position;
             Vector2 dir1 = Quaternion.Euler(0, 0, angle) * dir;
             Vector2 dir2 = Quaternion.Euler(0, 0, -angle) * dir; 
 
-            b.GetComponent<Bullet>().Fire(dir, bulletPooler, damages);
-            b1.GetComponent<Bullet>().Fire(dir1 , bulletPooler, damages);
-            b2.GetComponent<Bullet>().Fire(dir2 , bulletPooler, damages);
+            b.GetComponent<Bullet>().Fire(dir, bulletPooler, damages, faction);
+            b1.GetComponent<Bullet>().Fire(dir1 , bulletPooler, damages, faction);
+            b2.GetComponent<Bullet>().Fire(dir2 , bulletPooler, damages, faction);
 
             canShoot = false;
 

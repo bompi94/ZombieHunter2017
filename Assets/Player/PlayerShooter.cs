@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class PlayerShooter : Shooter {
 
+    protected override void Awake()
+    {
+        myFaction = Faction.Good;
+        base.Awake();  
+    }
+
     void Update()
     {
         if (gun != null)

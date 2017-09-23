@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 50728879699397688}
-  bulletSpeed: 30
+  bulletSpeed: 20
 --- !u!212 &212558837201200214
 SpriteRenderer:
   m_ObjectHideFlags: 1

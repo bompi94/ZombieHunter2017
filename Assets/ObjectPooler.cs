@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectPooler : MonoBehaviour {
-    [SerializeField]
-    GameObject myObject;
 
+    GameObject myObject;
     List<GameObject> Available = new List<GameObject>();
     List<GameObject> NotAvailable = new List<GameObject>();
-
     GameObject folder; 
 
-    private void Awake()
+    public void SetUp(GameObject objectToSpawn)
     {
+        myObject = objectToSpawn; 
         folder = new GameObject();
-        folder.name = myObject.name + "s"; 
+        folder.name = myObject.name + "s";
     }
 
     public GameObject GetObject()

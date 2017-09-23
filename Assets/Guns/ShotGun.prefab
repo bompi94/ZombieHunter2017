@@ -112,6 +112,7 @@ MonoBehaviour:
   shootPos: {fileID: 4810449156009728}
   coolDown: 2
   bullets: 5
+  damages: 1
 --- !u!212 &212189631920597864
 SpriteRenderer:
   m_ObjectHideFlags: 1

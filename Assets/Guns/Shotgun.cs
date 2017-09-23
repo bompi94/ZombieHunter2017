@@ -22,14 +22,14 @@ public class Shotgun : Gun {
             Vector2 dir1 = Quaternion.Euler(0, 0, angle) * dir;
             Vector2 dir2 = Quaternion.Euler(0, 0, -angle) * dir; 
 
-            b.GetComponent<Bullet>().Fire(dir, bulletPooler);
-            b1.GetComponent<Bullet>().Fire(dir1 , bulletPooler);
-            b2.GetComponent<Bullet>().Fire(dir2 , bulletPooler);
+            b.GetComponent<Bullet>().Fire(dir, bulletPooler, damages);
+            b1.GetComponent<Bullet>().Fire(dir1 , bulletPooler, damages);
+            b2.GetComponent<Bullet>().Fire(dir2 , bulletPooler, damages);
 
             canShoot = false;
 
-            bullets--;
-            if (bullets == 0)
+            actualBullets--;
+            if (actualBullets == 0)
             {
                 GunBreak();
                 return false;

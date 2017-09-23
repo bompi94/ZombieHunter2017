@@ -111,6 +111,8 @@ MonoBehaviour:
   recoil: 0.05
   shootPos: {fileID: 4197828793203240}
   coolDown: 1
+  bullets: 10
+  damages: 1
 --- !u!212 &212798569138233054
 SpriteRenderer:
   m_ObjectHideFlags: 1

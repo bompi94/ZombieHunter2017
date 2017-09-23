@@ -49,6 +49,16 @@ public class Shooter : MonoBehaviour
         }
     }
 
+    public bool ReloadGun()
+    {
+        if(gun && !gun.IsFull())
+        {
+            gun.Reload();
+            return true; 
+        }
+        return false;
+    }
+
     protected void PickGun(Gun gun)
     {
         if (gun && gun.CanBePicked())

@@ -12,20 +12,23 @@ public class Bullet : MonoBehaviour
     float bulletSpeed;
 
     ObjectPooler myPooler;
+    int damages;
 
-    public void Fire(Vector2 direction, ObjectPooler pooler)
+    public void Fire(Vector2 direction, ObjectPooler pooler, int damages)
     {
         body.velocity = direction * bulletSpeed;
         myPooler = pooler;
+        this.damages = damages; 
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.gameObject.GetComponent<PlayerMovement>()
-            && !collision.gameObject.GetComponent<Bullet>())
+        GameObject other = collision.gameObject;
+        if (other.GetComponent<Health>())
         {
-            Dismiss();
+            other.GetComponent<Health>().TakeDamage(damages); 
         }
+        Dismiss();
     }
 
     public void EnemyHit()

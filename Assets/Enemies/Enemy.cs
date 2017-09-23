@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour {
 
     private void Awake()
     {
-        player = GameObject.FindObjectOfType<PlayerMovement>().gameObject; 
+        player = FindObjectOfType<PlayerMovement>().gameObject; 
     }
 
 	void FixedUpdate () {

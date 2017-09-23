@@ -16,7 +16,9 @@ public class Gun : MonoBehaviour
 
     ObjectPooler bulletPooler;
 
-    bool pickedUp = false; 
+    bool pickedUp = false;
+
+    bool canBePickedUp = true; 
 
     private void Awake()
     {
@@ -47,11 +49,16 @@ public class Gun : MonoBehaviour
 
     public void PickedUp()
     {
-        pickedUp = true; 
+        pickedUp = true;
     }
 
     public void Leaved()
     {
-        pickedUp = false; 
+        pickedUp = false;      
+    }
+
+    public bool CanBePicked()
+    {
+        return !pickedUp; 
     }
 }

@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shooter : MonoBehaviour {
-
-    [SerializeField]
-    Gun gun; 
-
-    Rigidbody2D body; 
+public class Shooter : MonoBehaviour
+{
+    Gun gun;
+    Rigidbody2D body;
+    Gun nearGun;
 
     private void Awake()
     {
@@ -15,26 +14,30 @@ public class Shooter : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
         if (gun != null)
         {
             gun.SetRotation(MouseRotation());
+
             if (Input.GetButtonDown("Fire1"))
             {
                 Shoot();
             }
         }
 
-        if(Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire2"))
         {
-            LeaveGun(); 
+            if (gun)
+                LeaveGun();
+            else
+                PickGun(nearGun); 
         }
     }
 
     float StickRotation()
     {
-        float angle = 0; 
+        float angle = 0;
 
         float x = Input.GetAxis("YHorizontal");
         float y = Input.GetAxis("YVertical");
@@ -44,12 +47,12 @@ public class Shooter : MonoBehaviour {
             angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg + 90;
             angle *= -1;
         }
-        return angle; 
+        return angle;
     }
 
     float MouseRotation()
     {
-        float angle = 0; 
+        float angle = 0;
         Vector3 mousePositionInWorldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         Vector3 v = -mousePositionInWorldPoint + transform.position;
@@ -61,7 +64,7 @@ public class Shooter : MonoBehaviour {
         {
             angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg + 90;
         }
-        return angle; 
+        return angle;
     }
 
     void Shoot()
@@ -73,34 +76,51 @@ public class Shooter : MonoBehaviour {
     void ApplyRecoil()
     {
         Vector3 recoil = gun.GetRecoilVector();
-        transform.position += recoil; 
+        transform.position += recoil;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<Gun>())
-            PickGun(collision.GetComponent<Gun>()); 
+        Gun g = (collision.GetComponent<Gun>());
+        if (g)
+        {
+            if (g.CanBePicked())
+            {
+                print("near"); 
+                nearGun = g; 
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Gun g = (collision.GetComponent<Gun>());
+        if (g && g.Equals(nearGun))
+        {
+            print("not near"); 
+            nearGun = null; 
+        }
     }
 
     void PickGun(Gun gun)
     {
-        print("pickup"); 
-        GameObject gunGameObject = gun.gameObject;
-        gunGameObject.transform.SetParent(transform); 
-        gunGameObject.transform.position = transform.position;
-        this.gun = gun;
-        gun.PickedUp(); 
+        if (gun && gun.CanBePicked())
+        {
+            print("pickup");
+            GameObject gunGameObject = gun.gameObject;
+            gunGameObject.transform.SetParent(transform);
+            gunGameObject.transform.position = transform.position;
+            this.gun = gun;
+            gun.PickedUp();
+        }
     }
 
     void LeaveGun()
     {
-        if (gun)
-        {
-            print("leave");
-            GameObject gunGameObject = gun.gameObject;
-            gunGameObject.transform.SetParent(null);
-            gun.Leaved();
-            gun = null;
-        }
+        print("leave");
+        GameObject gunGameObject = gun.gameObject;
+        gunGameObject.transform.SetParent(null);
+        gun.Leaved();
+        gun = null;
     }
 }

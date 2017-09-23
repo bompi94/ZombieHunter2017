@@ -35,8 +35,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4685437685129680}
   - component: {fileID: 212798569138233054}
-  - component: {fileID: 114758415094349294}
   - component: {fileID: 61522189201108194}
+  - component: {fileID: 114758415094349294}
   m_Layer: 0
   m_Name: BasicGun
   m_TagString: Untagged

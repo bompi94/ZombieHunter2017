@@ -29,9 +29,8 @@ public class Gun : MonoBehaviour
 
     protected ObjectPooler bulletPooler;
 
+    [SerializeField]
     bool pickedUp = false;
-
-    bool canBePickedUp = true; 
 
     private void Awake()
     {

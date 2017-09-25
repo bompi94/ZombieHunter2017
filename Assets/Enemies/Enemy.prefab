@@ -106,6 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e9644725429aec4ead0060b88e44266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myFaction: 0
 --- !u!114 &114649142561017202
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -129,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a9114ff1c579ab4d8b8779f49bdb22b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 3
 --- !u!212 &212322542773350118
 SpriteRenderer:
   m_ObjectHideFlags: 1

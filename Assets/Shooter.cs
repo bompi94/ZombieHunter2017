@@ -12,6 +12,7 @@ public class Shooter : MonoBehaviour
     protected Gun gun;
     protected Rigidbody2D body;
     protected Gun nearGun;
+    [HideInInspector]
     public Faction myFaction; 
 
     protected virtual void Awake()

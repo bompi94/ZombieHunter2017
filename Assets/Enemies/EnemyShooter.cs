@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class EnemyShooter : Shooter
 {
-
-    Vector3 nearestGunPosition;
+    Vector3 nearestGunPosition = Vector3.zero;
     EnemyMovement movement;
     GameObject player;
 
@@ -39,29 +38,42 @@ public class EnemyShooter : Shooter
 
         if (guns.Length >= 0)
         {
-            nearestGunPosition = guns[0].transform.position;
-
-            bool thereIsAGunPickable = false;
-
-            for (int i = 0; i < guns.Length; i++)
-            {
-                if (guns[i].CanBePicked())
-                {
-                    Vector3 vv = guns[i].transform.position;
-                    if ((transform.position - vv).magnitude < (transform.position - nearestGunPosition).magnitude)
-                    {
-                        nearestGunPosition = vv;
-                    }
-                    thereIsAGunPickable = true;
-                }
-            }
-            if (thereIsAGunPickable)
-                movement.SetDestination(nearestGunPosition);
-            else
-                movement.SetDestination(transform.position);
+            GoToNearestGun(guns); 
         }
         else
+        {
             movement.SetDestination(transform.position);
+        }
+    }
+
+    void GoToNearestGun(Gun[] guns)
+    {
+        bool thereIsAGunPickable = false;
+
+        for (int i = 0; i < guns.Length; i++)
+        {
+            if (guns[i].CanBePicked() )
+            {
+                if(!thereIsAGunPickable)
+                {
+                    nearestGunPosition = guns[i].transform.position;
+                }
+                Vector3 vv = guns[i].transform.position;
+                if ((transform.position - vv).magnitude < (transform.position - nearestGunPosition).magnitude)
+                {
+                    nearestGunPosition = vv;
+                }
+                thereIsAGunPickable = true;
+            }
+        }
+        if (thereIsAGunPickable)
+        {
+            movement.SetDestination(nearestGunPosition);
+        }
+        else
+        {
+            movement.SetDestination(transform.position);
+        }
     }
 
     void ShootPlayer()

@@ -110,9 +110,10 @@ MonoBehaviour:
   bullet: {fileID: 1431405534531034, guid: 3ae675336dc45e948b30080962947883, type: 2}
   recoil: 0.05
   shootPos: {fileID: 4197828793203240}
-  coolDown: 1
+  coolDown: 0.3
   bullets: 10
   damages: 1
+  pickedUp: 0
 --- !u!212 &212798569138233054
 SpriteRenderer:
   m_ObjectHideFlags: 1

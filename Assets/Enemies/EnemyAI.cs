@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAI : Shooter {
+public class EnemyAI : Shooter
+{
 
     FSM stateMachine = new FSM();
     GameObject player;
@@ -20,31 +21,33 @@ public class EnemyAI : Shooter {
 
     private void Update()
     {
-        stateMachine.Run(); 
+        stateMachine.Run();
     }
 
+    //state
     void SeekGun()
+    {
+        if (ThereIsAGunPickable())
+            movementEngine.SetDestination(nearestGunPosition);
+
+        else
+        {
+            //transition
+            stateMachine.SetCurrentState(Hide);
+        }
+
+        //transition
+        if (!gun && nearGun)
+        {
+            PickGun(nearGun);
+            stateMachine.SetCurrentState(ShootPlayer);
+        }
+    }
+
+    bool ThereIsAGunPickable()
     {
         Gun[] guns = FindObjectsOfType<Gun>();
 
-        if (guns.Length >= 0)
-        {
-            GoToNearestGun(guns);
-        }
-        else
-        {
-            movementEngine.SetDestination(transform.position);
-        }
-
-        if(!gun && nearGun)
-        {
-            PickGun(nearGun);
-            stateMachine.SetCurrentState(ShootPlayer); 
-        }
-    }
-
-    void GoToNearestGun(Gun[] guns)
-    {
         bool thereIsAGunPickable = false;
 
         for (int i = 0; i < guns.Length; i++)
@@ -63,27 +66,47 @@ public class EnemyAI : Shooter {
                 thereIsAGunPickable = true;
             }
         }
-        if (thereIsAGunPickable)
+        return thereIsAGunPickable;
+    }
+
+    //state
+    void Hide()
+    {
+        movementEngine.SetDestination((transform.position - player.transform.position).normalized * 2);
+
+        if (ThereIsAGunPickable())
         {
-            movementEngine.SetDestination(nearestGunPosition);
-        }
-        else
-        {
-            movementEngine.SetDestination(transform.position);
+            stateMachine.SetCurrentState(SeekGun);
         }
     }
 
+    //state
     void ShootPlayer()
     {
+        //transition
         if (!gun || !player)
-            stateMachine.SetCurrentState(SeekGun); 
+            stateMachine.SetCurrentState(SeekGun);
 
         else if (player)
         {
             movementEngine.SetDestination(player.transform.position);
             gun.SetRotation(GetToPlayerRotation());
-            gun.Shoot(myFaction);
+            if (PlayerInSight())
+                gun.Shoot(myFaction);
         }
+    }
+
+    bool PlayerInSight()
+    {
+        RaycastHit2D[] ray = Physics2D.RaycastAll(transform.position, Quaternion.Euler(0,0, GetToPlayerRotation()) * Vector2.up, 10000);
+        for (int i = 0; i < ray.Length; i++)
+        {
+            if (ray[i].transform.gameObject.GetComponent<PlayerMovement>())
+                return true;
+            if (ray[i].transform.gameObject.name.StartsWith("wall"))
+                return false; 
+        }
+        return false; 
     }
 
     float GetToPlayerRotation()

@@ -2,34 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyShooter : Shooter
-{
+public class EnemyAI : Shooter {
+
+    FSM stateMachine = new FSM();
+    GameObject player;
     Vector3 nearestGunPosition = Vector3.zero;
     EnemyMovement movementEngine;
-    GameObject player;
 
     protected override void Awake()
     {
-        movementEngine = GetComponent<EnemyMovement>();
         player = FindObjectOfType<PlayerMovement>().gameObject;
+        movementEngine = GetComponent<EnemyMovement>();
         myFaction = Faction.Bad;
+        stateMachine.SetCurrentState(SeekGun);
         base.Awake();
     }
 
     private void Update()
     {
-        if (nearGun != null && nearGun.CanBePicked() && !gun)
-            PickGun(nearGun);
-
-        if (!gun)
-        {
-            SeekGun();
-        }
-
-        else
-        {
-            ShootPlayer();
-        }
+        stateMachine.Run(); 
     }
 
     void SeekGun()
@@ -43,6 +34,12 @@ public class EnemyShooter : Shooter
         else
         {
             movementEngine.SetDestination(transform.position);
+        }
+
+        if(!gun && nearGun)
+        {
+            PickGun(nearGun);
+            stateMachine.SetCurrentState(ShootPlayer); 
         }
     }
 
@@ -78,7 +75,10 @@ public class EnemyShooter : Shooter
 
     void ShootPlayer()
     {
-        if (player)
+        if (!gun || !player)
+            stateMachine.SetCurrentState(SeekGun); 
+
+        else if (player)
         {
             movementEngine.SetDestination(player.transform.position);
             gun.SetRotation(GetToPlayerRotation());

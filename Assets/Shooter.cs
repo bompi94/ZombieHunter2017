@@ -16,7 +16,8 @@ public class Shooter : MonoBehaviour
     [HideInInspector]
     public Faction myFaction;
 
-    public UnityEvent bulletsChangedEvent = new UnityEvent(); 
+    [HideInInspector]
+    public UnityEvent bulletsChangedEvent = new UnityEvent();
 
     protected virtual void Awake()
     {
@@ -28,9 +29,9 @@ public class Shooter : MonoBehaviour
         bool hasActuallyShot = gun.Shoot(myFaction);
         if (hasActuallyShot)
         {
-            bulletsChangedEvent.Invoke(); 
             ApplyRecoil();
         }
+        bulletsChangedEvent.Invoke();
     }
 
     void ApplyRecoil()
@@ -104,6 +105,6 @@ public class Shooter : MonoBehaviour
         if (gun)
             return gun.GetNumberOfBullets();
         else
-            return 0; 
+            return 0;
     }
 }

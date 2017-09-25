@@ -12,6 +12,7 @@ public class Health : MonoBehaviour {
 
     int hp;
 
+    [HideInInspector]
     public UnityEvent healthChanged = new UnityEvent(); 
 
     private void Awake()

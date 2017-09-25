@@ -5,12 +5,12 @@ using UnityEngine;
 public class EnemyShooter : Shooter
 {
     Vector3 nearestGunPosition = Vector3.zero;
-    EnemyMovement movement;
+    EnemyMovement movementEngine;
     GameObject player;
 
     protected override void Awake()
     {
-        movement = GetComponent<EnemyMovement>();
+        movementEngine = GetComponent<EnemyMovement>();
         player = FindObjectOfType<PlayerMovement>().gameObject;
         myFaction = Faction.Bad;
         base.Awake();
@@ -38,11 +38,11 @@ public class EnemyShooter : Shooter
 
         if (guns.Length >= 0)
         {
-            GoToNearestGun(guns); 
+            GoToNearestGun(guns);
         }
         else
         {
-            movement.SetDestination(transform.position);
+            movementEngine.SetDestination(transform.position);
         }
     }
 
@@ -52,9 +52,9 @@ public class EnemyShooter : Shooter
 
         for (int i = 0; i < guns.Length; i++)
         {
-            if (guns[i].CanBePicked() )
+            if (guns[i].CanBePicked())
             {
-                if(!thereIsAGunPickable)
+                if (!thereIsAGunPickable)
                 {
                     nearestGunPosition = guns[i].transform.position;
                 }
@@ -68,17 +68,17 @@ public class EnemyShooter : Shooter
         }
         if (thereIsAGunPickable)
         {
-            movement.SetDestination(nearestGunPosition);
+            movementEngine.SetDestination(nearestGunPosition);
         }
         else
         {
-            movement.SetDestination(transform.position);
+            movementEngine.SetDestination(transform.position);
         }
     }
 
     void ShootPlayer()
     {
-        movement.SetDestination(player.transform.position);
+        movementEngine.SetDestination(player.transform.position);
         gun.SetRotation(GetToPlayerRotation());
         gun.Shoot(myFaction);
     }
@@ -86,16 +86,8 @@ public class EnemyShooter : Shooter
     float GetToPlayerRotation()
     {
         float angle = 0;
-
-        Vector3 v = -player.transform.position + transform.position;
-
-        float x = v.x;
-        float y = v.y;
-
-        if (Mathf.Abs(x) >= 0.5 || Mathf.Abs(y) >= 0.5)
-        {
-            angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg + 90;
-        }
+        Vector3 v = transform.position - player.transform.position;
+        angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg + 90;
         return angle;
     }
 }

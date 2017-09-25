@@ -7,6 +7,8 @@ public class Health : MonoBehaviour {
     [SerializeField]
     public int startingHP;
 
+    bool canBeDamaged = true; 
+
     int hp;
 
     private void Awake()
@@ -16,11 +18,24 @@ public class Health : MonoBehaviour {
 
     public void TakeDamage(int amount)
     {
-        hp -= amount; 
-        if(hp==0)
+        if (canBeDamaged)
         {
-            Die(); 
+            hp -= amount;
+            if (hp == 0)
+            {
+                Die();
+            }
         }
+    }
+
+    public void BecomesInvulnerable()
+    {
+        canBeDamaged = false;
+    }
+
+    public void BecomesVulnerable()
+    {
+        canBeDamaged = true; 
     }
 
     protected virtual void Die()

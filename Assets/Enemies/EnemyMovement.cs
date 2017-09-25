@@ -8,7 +8,6 @@ public class EnemyMovement : MonoBehaviour {
     float speed;
 
     GameObject player;
-
     Vector3 destination; 
 
     private void Awake()
@@ -19,11 +18,6 @@ public class EnemyMovement : MonoBehaviour {
 	void FixedUpdate () {
 		transform.position += (destination - transform.position).normalized * speed * Time.fixedDeltaTime; 
 	}
-
-    void Die()
-    {
-        Destroy(gameObject);
-    }
 
     public void SetDestination(Vector3 v)
     {

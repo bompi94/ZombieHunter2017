@@ -115,4 +115,9 @@ public class Gun : MonoBehaviour
     {
         actualBullets = bullets; 
     }
+
+    public int GetNumberOfBullets()
+    {
+        return actualBullets; 
+    }
 }

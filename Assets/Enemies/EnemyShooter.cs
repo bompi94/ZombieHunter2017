@@ -78,9 +78,12 @@ public class EnemyShooter : Shooter
 
     void ShootPlayer()
     {
-        movementEngine.SetDestination(player.transform.position);
-        gun.SetRotation(GetToPlayerRotation());
-        gun.Shoot(myFaction);
+        if (player)
+        {
+            movementEngine.SetDestination(player.transform.position);
+            gun.SetRotation(GetToPlayerRotation());
+            gun.Shoot(myFaction);
+        }
     }
 
     float GetToPlayerRotation()

@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public enum Faction
 {
     Good, Bad
-} 
+}
 
 public class Shooter : MonoBehaviour
 {
@@ -13,7 +14,9 @@ public class Shooter : MonoBehaviour
     protected Rigidbody2D body;
     protected Gun nearGun;
     [HideInInspector]
-    public Faction myFaction; 
+    public Faction myFaction;
+
+    public UnityEvent bulletsChangedEvent = new UnityEvent(); 
 
     protected virtual void Awake()
     {
@@ -24,7 +27,10 @@ public class Shooter : MonoBehaviour
     {
         bool hasActuallyShot = gun.Shoot(myFaction);
         if (hasActuallyShot)
+        {
+            bulletsChangedEvent.Invoke(); 
             ApplyRecoil();
+        }
     }
 
     void ApplyRecoil()
@@ -58,10 +64,10 @@ public class Shooter : MonoBehaviour
 
     public bool ReloadGun()
     {
-        if(gun && !gun.IsFull())
+        if (gun && !gun.IsFull())
         {
             gun.Reload();
-            return true; 
+            return true;
         }
         return false;
     }
@@ -76,6 +82,7 @@ public class Shooter : MonoBehaviour
             gunGameObject.transform.position = transform.position;
             this.gun = gun;
             gun.PickedUp();
+            bulletsChangedEvent.Invoke();
         }
     }
 
@@ -88,6 +95,15 @@ public class Shooter : MonoBehaviour
             gunGameObject.transform.SetParent(null);
             gun.Leaved();
             gun = null;
+            bulletsChangedEvent.Invoke();
         }
+    }
+
+    public int GetNumberOfBullets()
+    {
+        if (gun)
+            return gun.GetNumberOfBullets();
+        else
+            return 0; 
     }
 }

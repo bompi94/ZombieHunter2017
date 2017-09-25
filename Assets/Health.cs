@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Health : MonoBehaviour {
 
@@ -11,9 +12,16 @@ public class Health : MonoBehaviour {
 
     int hp;
 
+    public UnityEvent healthChanged = new UnityEvent(); 
+
     private void Awake()
     {
-        hp = startingHP; 
+        hp = startingHP;
+    }
+
+    private void Start()
+    {
+        healthChanged.Invoke();
     }
 
     public void TakeDamage(int amount)
@@ -21,6 +29,7 @@ public class Health : MonoBehaviour {
         if (canBeDamaged)
         {
             hp -= amount;
+            healthChanged.Invoke(); 
             if (hp == 0)
             {
                 Die();

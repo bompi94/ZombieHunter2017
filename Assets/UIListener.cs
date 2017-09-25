@@ -9,4 +9,15 @@ public class UIListener : MonoBehaviour {
     {
         SceneManager.LoadScene("MainScene"); 
     }
+
+    public void MainMenu()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Menu");
+    }
+
+    public void ResumeFromPause()
+    {
+        FindObjectOfType<UIUpdater>().Pause(); 
+    }
 }

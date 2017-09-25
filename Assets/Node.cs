@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Node : MonoBehaviour {
 
-    List<Node> validNeighbours = new List<Node>(); 
+    public List<Node> validNeighbours = new List<Node>(); 
 
     public void FindValidNeighbours(float x, float y)
     {

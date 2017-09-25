@@ -59,4 +59,14 @@ public class NodePlacer : MonoBehaviour {
             nodes[i].FindValidNeighbours(stepX,stepY); 
         }
     }
+
+    public Node FindNodeFromPosition(Vector3 v)
+    {
+        for (int i = 0; i < nodes.Count; i++)
+        {
+            if ((v - nodes[i].transform.position).magnitude < 1)
+                return nodes[i]; 
+        }
+        return null; 
+    }
 }

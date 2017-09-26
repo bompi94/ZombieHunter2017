@@ -10,13 +10,18 @@ public class ExplosionPiece : MonoBehaviour
     Vector3 dir;
     bool init;
 
+    private void Awake()
+    {
+        TimeManager.Instance.tick.AddListener(TimedUpdate); 
+    }
+
     public void AddForce(Vector3 dir)
     {
         this.dir = dir;
         init = true;
     }
 
-    private void Update()
+    private void TimedUpdate()
     {
         if (init)
         {

@@ -27,10 +27,11 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         actualSpeed = speed;
-        timeManager = FindObjectOfType<TimeManager>(); 
+        timeManager = FindObjectOfType<TimeManager>();
+        timeManager.tick.AddListener(TimedUpdate); 
     }
 
-    void Update()
+    void TimedUpdate()
     {
         float horizMovement = Input.GetAxis("Horizontal");
         float vertMovement = Input.GetAxis("Vertical");

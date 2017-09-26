@@ -923,7 +923,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1279425759
 Prefab:
@@ -962,7 +962,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4731748992684798, guid: addc5ac851b766c4aa99c419c018e4d4, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1652327191571058, guid: addc5ac851b766c4aa99c419c018e4d4, type: 2}
       propertyPath: m_IsActive
@@ -1034,7 +1034,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1409185126
 Prefab:
@@ -1525,22 +1525,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4524534874670098, guid: 859c360e0b953ed419beee1e7bbcfbce, type: 2}
       propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 20553592516423194, guid: 859c360e0b953ed419beee1e7bbcfbce,
-        type: 2}
-      propertyPath: m_BackGroundColor.r
-      value: 0.9264706
-      objectReference: {fileID: 0}
-    - target: {fileID: 20553592516423194, guid: 859c360e0b953ed419beee1e7bbcfbce,
-        type: 2}
-      propertyPath: m_BackGroundColor.g
-      value: 0.9264706
-      objectReference: {fileID: 0}
-    - target: {fileID: 20553592516423194, guid: 859c360e0b953ed419beee1e7bbcfbce,
-        type: 2}
-      propertyPath: m_BackGroundColor.b
-      value: 0.9264706
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 859c360e0b953ed419beee1e7bbcfbce, type: 2}

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerShooter : Shooter {
 
+    [SerializeField]
+    GameObject bullseye; 
+
     protected override void Awake()
     {
         TimeManager.Instance.tick.AddListener(TimedUpdate);
@@ -35,6 +38,7 @@ public class PlayerShooter : Shooter {
         {
             gun.SetRotation(MouseRotation());
         }
+        bullseye.transform.rotation = Quaternion.Euler(0, 0, MouseRotation() + 90);  
     }
 
     float StickRotation()

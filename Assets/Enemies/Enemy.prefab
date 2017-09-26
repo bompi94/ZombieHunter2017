@@ -192,13 +192,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c688ccc6ead106f498ff4e204fb23a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myFaction: 0
   bulletsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  shootTime: 1
+  shootTime: 0.5
 --- !u!114 &114360816788350710
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -244,7 +243,7 @@ MonoBehaviour:
   bullet: {fileID: 1431405534531034, guid: 3ae675336dc45e948b30080962947883, type: 2}
   recoil: 0
   shootPos: {fileID: 4395774770307610}
-  coolDown: 1
+  coolDown: 0
   bullets: 400
   damages: 1
   pickedUp: 0

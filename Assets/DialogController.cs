@@ -26,6 +26,7 @@ public class DialogController : MonoBehaviour {
 
     IEnumerator OneWordAtATime()
     {
+        yield return new WaitForSeconds(1); 
         panel.SetActive(true); 
         while(wordIndex<words.Length)
         {

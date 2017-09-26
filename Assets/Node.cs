@@ -47,9 +47,14 @@ public class Node : MonoBehaviour {
         }
     }
 
-    void DrawLineWith(Node n, Color c)
+    public void DrawLineWith(Node n, Color c)
     {
-        Debug.DrawLine(transform.position, n.transform.position, c, 1000000); 
+        Debug.DrawLine(transform.position, n.transform.position, c, 5); 
+    }
+
+    public void ChangeColor(Color c)
+    {
+        GetComponent<SpriteRenderer>().color = c; 
     }
 	
 }

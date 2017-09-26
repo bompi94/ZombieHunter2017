@@ -29,6 +29,8 @@ public class LevelManager : MonoBehaviour {
 
     public void StartLevel()
     {
-
+        TimeManager.Instance.Stop(); 
+        FindObjectOfType<DialogController>().ShowDialog();
+        TimeManager.Instance.Work(); 
     }
 }

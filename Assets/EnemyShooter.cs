@@ -17,13 +17,14 @@ public class EnemyShooter : Shooter
         {
             PickGun(transform.GetChild(0).GetComponent<Gun>());
         }
+        TimeManager.Instance.tick.AddListener(TimedUpdate);
         base.Awake();
     }
 
-    private void Update()
+    private void TimedUpdate()
     {
         gun.SetRotation(GetToPlayerRotation());
-        shootTimer += Time.deltaTime;
+        shootTimer += TimeManager.deltaTime;
         if (shootTimer >= shootTime)
         {
             if (gun)

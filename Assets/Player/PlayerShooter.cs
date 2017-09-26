@@ -6,15 +6,14 @@ public class PlayerShooter : Shooter {
 
     protected override void Awake()
     {
+        TimeManager.Instance.tick.AddListener(TimedUpdate);
         base.Awake();  
     }
 
-    void Update()
+    private void Update()
     {
         if (gun != null)
         {
-            gun.SetRotation(MouseRotation());
-
             if (Input.GetButtonDown("Fire1"))
             {
                 Shoot();
@@ -27,6 +26,14 @@ public class PlayerShooter : Shooter {
                 LeaveGun();
             else
                 PickGun(nearGun);
+        }
+    }
+
+    void TimedUpdate()
+    {
+        if (gun != null)
+        {
+            gun.SetRotation(MouseRotation());
         }
     }
 

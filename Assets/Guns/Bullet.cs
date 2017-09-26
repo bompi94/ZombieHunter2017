@@ -22,7 +22,8 @@ public class Bullet : MonoBehaviour
 
     private void Awake()
     {
-        lr = GetComponent<LineRenderer>(); 
+        lr = GetComponent<LineRenderer>();
+        TimeManager.Instance.tick.AddListener(TimedUpdate); 
     }
 
     public void Fire(Vector2 direction, ObjectPooler pooler, int damages)
@@ -33,11 +34,11 @@ public class Bullet : MonoBehaviour
         init = true; 
     }
 
-    private void Update()
+    private void TimedUpdate()
     {
         if (init)
         {
-            transform.position += dir * Time.deltaTime;
+            transform.position += dir * TimeManager.deltaTime;
             lr.SetPosition(0, transform.position);
             lr.SetPosition(1, transform.position - dir.normalized); 
         }

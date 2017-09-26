@@ -40,14 +40,16 @@ public class Gun : MonoBehaviour
         go.AddComponent<ObjectPooler>();
         go.GetComponent<ObjectPooler>().SetUp(bullet);
         bulletPooler = go.GetComponent<ObjectPooler>();
-        actualBullets = bullets; 
+        actualBullets = bullets;
+        TimeManager.Instance.tick.AddListener(TimedUpdate);
+
     }
 
-    private void Update()
+    private void TimedUpdate()
     {
         if(!canShoot)
         {
-            coolDownTimer += Time.deltaTime; 
+            coolDownTimer += TimeManager.deltaTime; 
             if(coolDownTimer>=coolDown)
             {
                 canShoot = true;

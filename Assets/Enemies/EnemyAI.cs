@@ -10,6 +10,8 @@ public class EnemyAI : Shooter
     Vector3 nearestGunPosition = Vector3.zero;
     EnemyMovement movementEngine;
 
+    bool goingToGun;
+
     protected override void Awake()
     {
         player = FindObjectOfType<PlayerMovement>().gameObject;
@@ -28,7 +30,9 @@ public class EnemyAI : Shooter
     void SeekGun()
     {
         if (ThereIsAGunPickable())
+        {
             movementEngine.SetDestination(nearestGunPosition);
+        }
 
         else
         {
@@ -98,15 +102,15 @@ public class EnemyAI : Shooter
 
     bool PlayerInSight()
     {
-        RaycastHit2D[] ray = Physics2D.RaycastAll(transform.position, Quaternion.Euler(0,0, GetToPlayerRotation()) * Vector2.up, 10000);
+        RaycastHit2D[] ray = Physics2D.RaycastAll(transform.position, Quaternion.Euler(0, 0, GetToPlayerRotation()) * Vector2.up, 10000);
         for (int i = 0; i < ray.Length; i++)
         {
             if (ray[i].transform.gameObject.GetComponent<PlayerMovement>())
                 return true;
             if (ray[i].transform.gameObject.name.StartsWith("wall"))
-                return false; 
+                return false;
         }
-        return false; 
+        return false;
     }
 
     float GetToPlayerRotation()

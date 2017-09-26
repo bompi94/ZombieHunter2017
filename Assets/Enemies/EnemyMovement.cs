@@ -25,18 +25,28 @@ public class EnemyMovement : MonoBehaviour
     {
         if (path.Count != 0)
         {
+
             transform.position += (path[0].transform.position - transform.position).normalized * speed * Time.fixedDeltaTime;
 
             if (Vector2.Distance(transform.position, path[0].transform.position) < .5f)
                 path.RemoveAt(0);
         }
+
+        else
+        {
+            transform.position += (destination - transform.position).normalized * speed * Time.fixedDeltaTime;
+        }
     }
 
     public void SetDestination(Vector3 v)
     {
-        Node start = FindNodeFromPosition(transform.position);
-        Node end = FindNodeFromPosition(v);
-        path = pathfinder.FindPath(start, end);
+        if (v != destination)
+        {
+            destination = v;
+            Node start = FindNodeFromPosition(transform.position);
+            Node end = FindNodeFromPosition(v);
+            path = pathfinder.FindPath(start, end);
+        }
     }
 
     Node FindNodeFromPosition(Vector3 v)

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Pathfinder : MonoBehaviour
 {
+    //A* implementation
     public List<Node> FindPath(Node start, Node goal) 
     {
         List<Node> finalPath = new List<Node>(); 

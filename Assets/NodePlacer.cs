@@ -64,8 +64,10 @@ public class NodePlacer : MonoBehaviour {
     {
         for (int i = 0; i < nodes.Count; i++)
         {
-            if ((v - nodes[i].transform.position).magnitude < 1)
-                return nodes[i]; 
+            if ((v - nodes[i].transform.position).magnitude <1f)
+            {
+                return nodes[i];
+            }
         }
         return null; 
     }

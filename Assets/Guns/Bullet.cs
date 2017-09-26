@@ -16,12 +16,23 @@ public class Bullet : MonoBehaviour
 
     Faction faction;
 
+    Vector3 dir;
+
+    bool init = false;
+
     public void Fire(Vector2 direction, ObjectPooler pooler, int damages, Faction faction)
     {
-        body.velocity = direction * bulletSpeed;
+        dir = direction * bulletSpeed;
         myPooler = pooler;
         this.damages = damages;
         this.faction = faction;
+        init = true; 
+    }
+
+    private void Update()
+    {
+        if (init)
+            transform.position += dir * Time.deltaTime;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -42,7 +53,8 @@ public class Bullet : MonoBehaviour
 
     void Dismiss()
     {
-        body.velocity = Vector3.zero;
+        dir = Vector3.zero;
+        init = false; 
         myPooler.GameObjectReturnsAvailable(gameObject);
     }
 }

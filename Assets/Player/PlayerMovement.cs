@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     float speed;
 
-    float actualSpeed; 
+    float actualSpeed;
 
     Vector3 movement = Vector3.zero;
 
@@ -22,39 +22,31 @@ public class PlayerMovement : MonoBehaviour
 
     bool rolling = false;
 
+    TimeManager timeManager; 
+
     private void Awake()
     {
-        actualSpeed = speed; 
+        actualSpeed = speed;
+        timeManager = FindObjectOfType<TimeManager>(); 
     }
 
     void Update()
     {
-        if (Input.GetButtonDown("Jump") && !rolling)
-        {
-            DoRoll();
-        }
+        float horizMovement = Input.GetAxis("Horizontal");
+        float vertMovement = Input.GetAxis("Vertical");
+        movement.x = horizMovement;
+        movement.y = vertMovement;
 
-        else if(rolling)
+        if(horizMovement!=0 || vertMovement!=0)
         {
-            rollTimer += Time.deltaTime; 
-            if(rollTimer>rollTime)
-            {
-                EndRoll(); 
-            }
+            timeManager.FastTime(); 
         }
 
         else
         {
-            float horizMovement = Input.GetAxis("Horizontal");
-            float vertMovement = Input.GetAxis("Vertical");
-            movement.x = horizMovement;
-            movement.y = vertMovement;
+            timeManager.SlowTime(); 
         }
-    }
-
-    private void FixedUpdate()
-    {
-        transform.position += movement * actualSpeed * Time.fixedDeltaTime;
+        transform.position += movement * actualSpeed * Time.deltaTime;
     }
 
     void DoRoll()

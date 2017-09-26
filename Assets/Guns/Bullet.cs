@@ -40,8 +40,7 @@ public class Bullet : MonoBehaviour
         GameObject other = collision.gameObject;
         if (other.GetComponent<Health>())
         {
-            if (other.GetComponent<Shooter>().myFaction != faction)
-                other.GetComponent<Health>().TakeDamage(damages);
+            other.GetComponent<Health>().TakeDamage(damages);
         }
         Dismiss();
     }

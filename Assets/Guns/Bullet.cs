@@ -14,25 +14,33 @@ public class Bullet : MonoBehaviour
     ObjectPooler myPooler;
     int damages;
 
-    Faction faction;
-
     Vector3 dir;
 
     bool init = false;
 
-    public void Fire(Vector2 direction, ObjectPooler pooler, int damages, Faction faction)
+    LineRenderer lr; 
+
+    private void Awake()
+    {
+        lr = GetComponent<LineRenderer>(); 
+    }
+
+    public void Fire(Vector2 direction, ObjectPooler pooler, int damages)
     {
         dir = direction * bulletSpeed;
         myPooler = pooler;
         this.damages = damages;
-        this.faction = faction;
         init = true; 
     }
 
     private void Update()
     {
         if (init)
+        {
             transform.position += dir * Time.deltaTime;
+            lr.SetPosition(0, transform.position);
+            lr.SetPosition(1, transform.position - dir.normalized); 
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -61,14 +61,14 @@ public class Gun : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
-    public virtual bool Shoot(Faction faction)
+    public virtual bool Shoot()
     {
         if (canShoot)
         {
             GameObject b = bulletPooler.GetObject();
             b.transform.position = shootPos.position;
             Vector3 dir = shootPos.position - transform.position;
-            b.GetComponent<Bullet>().Fire(dir, bulletPooler, damages, faction);
+            b.GetComponent<Bullet>().Fire(dir, bulletPooler, damages);
             canShoot = false;
             actualBullets--;
             if (actualBullets == 0)

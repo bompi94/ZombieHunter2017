@@ -6,7 +6,6 @@ public class PlayerShooter : Shooter {
 
     protected override void Awake()
     {
-        myFaction = Faction.Good;
         base.Awake();  
     }
 

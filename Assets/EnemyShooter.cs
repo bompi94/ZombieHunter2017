@@ -4,21 +4,32 @@ using UnityEngine;
 
 public class EnemyShooter : Shooter
 {
+    [SerializeField]
+    float shootTime; 
     GameObject player;
+    float shootTimer;
+
     protected override void Awake()
     {
+        shootTimer = shootTime; 
         player = FindObjectOfType<PlayerMovement>().gameObject;
         if (transform.GetChild(0) != null)
         {
-            PickGun(transform.GetChild(0).GetComponent<Gun>()); 
+            PickGun(transform.GetChild(0).GetComponent<Gun>());
         }
         base.Awake();
     }
 
     private void Update()
     {
-        if (gun)
-            ShootPlayer();
+        gun.SetRotation(GetToPlayerRotation());
+        shootTimer += Time.deltaTime;
+        if (shootTimer >= shootTime)
+        {
+            if (gun)
+                ShootPlayer();
+            shootTimer = 0; 
+        }
     }
 
     void ShootPlayer()
@@ -26,9 +37,8 @@ public class EnemyShooter : Shooter
         if (player)
         {
             //should probably move somewhere
-            gun.SetRotation(GetToPlayerRotation());
             if (PlayerInSight())
-                gun.Shoot(myFaction);
+                gun.Shoot();
         }
     }
 

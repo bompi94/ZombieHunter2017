@@ -3,18 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public enum Faction
-{
-    Good, Bad
-}
-
 public class Shooter : MonoBehaviour
 {
     protected Gun gun;
     protected Rigidbody2D body;
     protected Gun nearGun;
-    [HideInInspector]
-    public Faction myFaction;
 
     [HideInInspector]
     public UnityEvent bulletsChangedEvent = new UnityEvent();
@@ -26,7 +19,7 @@ public class Shooter : MonoBehaviour
 
     protected void Shoot()
     {
-        bool hasActuallyShot = gun.Shoot(myFaction);
+        bool hasActuallyShot = gun.Shoot();
         if (hasActuallyShot)
         {
             ApplyRecoil();

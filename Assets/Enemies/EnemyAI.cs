@@ -16,7 +16,6 @@ public class EnemyAI : Shooter
     {
         player = FindObjectOfType<PlayerMovement>().gameObject;
         movementEngine = GetComponent<EnemyMovement>();
-        myFaction = Faction.Bad;
         stateMachine.SetCurrentState(SeekGun);
         base.Awake();
     }
@@ -96,7 +95,7 @@ public class EnemyAI : Shooter
             movementEngine.SetDestination(player.transform.position);
             gun.SetRotation(GetToPlayerRotation());
             if (PlayerInSight())
-                gun.Shoot(myFaction);
+                gun.Shoot();
         }
     }
 

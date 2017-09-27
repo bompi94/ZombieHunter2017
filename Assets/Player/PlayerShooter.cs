@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerShooter : Shooter {
+public class PlayerShooter : Shooter
+{
 
     [SerializeField]
     GameObject bullseye;
@@ -10,9 +11,9 @@ public class PlayerShooter : Shooter {
     [SerializeField]
     float throwSpeed;
 
-    GameObject aim; 
+    GameObject aim;
 
-    EnemyShooter nearEnemy; 
+    EnemyShooter nearEnemy;
 
     protected override void Awake()
     {
@@ -31,13 +32,13 @@ public class PlayerShooter : Shooter {
 
             else
             {
-                ManageClick(); 
+                ManageClick();
             }
         }
 
-        if(Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire2"))
         {
-            if(gun!=null)
+            if (gun != null)
             {
                 ThrowGun();
             }
@@ -46,28 +47,29 @@ public class PlayerShooter : Shooter {
 
     void ThrowGun()
     {
-        gun.Throw(aim.transform.position - transform.position, throwSpeed); 
+        gun.Throw(aim.transform.position - transform.position, throwSpeed);
         LeaveGun();
     }
 
     void ManageClick()
     {
-        if (nearGun)
-            PickGun(nearGun);
+
         if (nearEnemy)
         {
-            PickGun(nearEnemy.StealGun()); 
-        }   
+            PickGun(nearEnemy.StealGun());
+        }
+        else if (nearGun)
+            PickGun(nearGun);
     }
 
     protected override void TimedUpdate()
     {
-        base.TimedUpdate(); 
+        base.TimedUpdate();
         if (gun != null)
         {
             gun.SetRotation(MouseRotation());
         }
-        bullseye.transform.rotation = Quaternion.Euler(0, 0, MouseRotation() + 90);  
+        bullseye.transform.rotation = Quaternion.Euler(0, 0, MouseRotation() + 90);
     }
 
     float StickRotation()

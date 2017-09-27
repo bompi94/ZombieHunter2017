@@ -61,4 +61,9 @@ public class TimeManager : MonoBehaviour
             tick.Invoke();
         }
     }
+
+    public float GetScale()
+    {
+        return scale;
+    }
 }

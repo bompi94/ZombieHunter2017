@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class ExplosionPiece : MonoBehaviour
 {
-
-
     float intensity = .3f;
     Vector3 dir;
     bool init;
@@ -25,9 +23,9 @@ public class ExplosionPiece : MonoBehaviour
     {
         if (init)
         {
-            intensity -= Time.deltaTime;
+            intensity -= TimeManager.deltaTime;
             if (intensity >= 0)
-                transform.position += dir * intensity * Time.deltaTime;
+                transform.position += dir * intensity * TimeManager.deltaTime;
         }
     }
 }

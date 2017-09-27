@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class EnemyShooter : Shooter
 {
-    [SerializeField]
-    float shootTime; 
+
     GameObject player;
-    float shootTimer;
+
 
     protected override void Awake()
     {
-        shootTimer = shootTime; 
         player = FindObjectOfType<PlayerMovement>().gameObject;
         if (transform.GetChild(0) != null)
         {
@@ -24,13 +22,8 @@ public class EnemyShooter : Shooter
     private void TimedUpdate()
     {
         gun.SetRotation(GetToPlayerRotation());
-        shootTimer += TimeManager.deltaTime;
-        if (shootTimer >= shootTime)
-        {
-            if (gun)
-                ShootPlayer();
-            shootTimer = 0; 
-        }
+        if (gun)
+            ShootPlayer();
     }
 
     void ShootPlayer()

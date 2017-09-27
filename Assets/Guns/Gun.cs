@@ -29,6 +29,8 @@ public class Gun : MonoBehaviour
 
     protected ObjectPooler bulletPooler;
 
+    GunExplosion gunExplosion; 
+
     [SerializeField]
     bool pickedUp = false;
 
@@ -42,7 +44,7 @@ public class Gun : MonoBehaviour
         bulletPooler = go.GetComponent<ObjectPooler>();
         actualBullets = bullets;
         TimeManager.Instance.tick.AddListener(TimedUpdate);
-
+        gunExplosion = GetComponentInChildren<GunExplosion>(); 
     }
 
     private void TimedUpdate()
@@ -73,6 +75,7 @@ public class Gun : MonoBehaviour
             b.GetComponent<Bullet>().Fire(dir, bulletPooler, damages);
             canShoot = false;
             actualBullets--;
+            gunExplosion.Play(coolDown); 
             if (actualBullets == 0)
             {
                 GunBreak();

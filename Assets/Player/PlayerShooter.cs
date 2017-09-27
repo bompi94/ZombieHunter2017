@@ -15,21 +15,26 @@ public class PlayerShooter : Shooter {
 
     private void Update()
     {
-        if (gun != null)
+        if (Input.GetButtonDown("Fire1"))
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (gun != null)
             {
                 Shoot();
             }
-        }
 
-        if (Input.GetButtonDown("Fire2"))
-        {
-            if (gun)
-                LeaveGun();
             else
-                PickGun(nearGun);
+            {
+                ManageClick(); 
+            }
         }
+    }
+
+    void ManageClick()
+    {
+        //if near gun 
+            //pick gun
+        //if near enemy
+            //steal gun from enemy
     }
 
     void TimedUpdate()

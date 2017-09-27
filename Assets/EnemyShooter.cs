@@ -15,21 +15,24 @@ public class EnemyShooter : Shooter
         {
             PickGun(transform.GetChild(0).GetComponent<Gun>());
         }
-        TimeManager.Instance.tick.AddListener(TimedUpdate);
         base.Awake();
     }
 
-    private void TimedUpdate()
+    protected override void TimedUpdate()
     {
-        gun.SetRotation(GetToPlayerRotation());
+        base.TimedUpdate(); 
         if (gun)
-            ShootPlayer();
+        {
+            gun.SetRotation(GetToPlayerRotation());
+            Shoot();
+        }
     }
 
-    void ShootPlayer()
+    protected override void Shoot()
     {
-        if (player)
+        if (canShoot && player)
         {
+            canShoot = false; 
             //should probably move somewhere
             if (PlayerInSight())
                 gun.Shoot();
@@ -56,5 +59,18 @@ public class EnemyShooter : Shooter
         Vector3 v = transform.position - player.transform.position;
         angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg + 90;
         return angle;
+    }
+
+    public bool HasGun()
+    {
+        return gun != null; 
+    }
+
+    public Gun StealGun()
+    {
+        Gun g = gun;
+        LeaveGun();
+        GetComponent<Rigidbody2D>().AddForce(transform.position - player.transform.position, ForceMode2D.Impulse); 
+        return g; 
     }
 }

@@ -5,6 +5,12 @@ using UnityEngine.Events;
 
 public class Shooter : MonoBehaviour
 {
+    [SerializeField]
+    float cooldownTime;
+
+    float cooldownTimer;
+    protected bool canShoot = true; 
+
     protected Gun gun;
     protected Rigidbody2D body;
     protected Gun nearGun;
@@ -15,45 +21,45 @@ public class Shooter : MonoBehaviour
     protected virtual void Awake()
     {
         body = GetComponent<Rigidbody2D>();
+        TimeManager.Instance.tick.AddListener(TimedUpdate); 
     }
 
-    protected void Shoot()
+    public void SetNearGun(Gun g)
     {
-        bool hasActuallyShot = gun.Shoot();
-        if (hasActuallyShot)
+        nearGun = g; 
+    }
+
+    protected virtual void TimedUpdate()
+    {
+        if (!canShoot)
         {
-            ApplyRecoil();
+            cooldownTimer += TimeManager.deltaTime;
+            if (cooldownTimer >= cooldownTime)
+            {
+                canShoot = true;
+                cooldownTimer = 0; 
+            }
         }
-        bulletsChangedEvent.Invoke();
+    }
+
+    protected virtual void Shoot()
+    {
+        if (canShoot)
+        {
+            canShoot = false; 
+            bool hasActuallyShot = gun.Shoot();
+            if (hasActuallyShot)
+            {
+                ApplyRecoil();
+            }
+            bulletsChangedEvent.Invoke();
+        }
     }
 
     void ApplyRecoil()
     {
         Vector3 recoil = gun.GetRecoilVector();
         transform.position += recoil;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Gun g = (collision.GetComponent<Gun>());
-        if (g)
-        {
-            if (g.CanBePicked())
-            {
-                print("near");
-                nearGun = g;
-            }
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        Gun g = (collision.GetComponent<Gun>());
-        if (g && g.Equals(nearGun))
-        {
-            print("not near");
-            nearGun = null;
-        }
     }
 
     public bool ReloadGun()

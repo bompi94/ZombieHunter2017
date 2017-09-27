@@ -5,11 +5,12 @@ using UnityEngine;
 public class PlayerShooter : Shooter {
 
     [SerializeField]
-    GameObject bullseye; 
+    GameObject bullseye;
+
+    EnemyShooter nearEnemy; 
 
     protected override void Awake()
     {
-        TimeManager.Instance.tick.AddListener(TimedUpdate);
         base.Awake();  
     }
 
@@ -31,14 +32,17 @@ public class PlayerShooter : Shooter {
 
     void ManageClick()
     {
-        //if near gun 
-            //pick gun
-        //if near enemy
-            //steal gun from enemy
+        if (nearGun)
+            PickGun(nearGun);
+        if (nearEnemy)
+        {
+            PickGun(nearEnemy.StealGun()); 
+        }   
     }
 
-    void TimedUpdate()
+    protected override void TimedUpdate()
     {
+        base.TimedUpdate(); 
         if (gun != null)
         {
             gun.SetRotation(MouseRotation());
@@ -76,5 +80,10 @@ public class PlayerShooter : Shooter {
             angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg + 90;
         }
         return angle;
+    }
+
+    public void SetNearEnemy(EnemyShooter es)
+    {
+        nearEnemy = es;
     }
 }

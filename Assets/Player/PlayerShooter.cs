@@ -7,11 +7,17 @@ public class PlayerShooter : Shooter {
     [SerializeField]
     GameObject bullseye;
 
+    [SerializeField]
+    float throwSpeed;
+
+    GameObject aim; 
+
     EnemyShooter nearEnemy; 
 
     protected override void Awake()
     {
-        base.Awake();  
+        base.Awake();
+        aim = bullseye.transform.GetChild(0).gameObject;
     }
 
     private void Update()
@@ -28,6 +34,20 @@ public class PlayerShooter : Shooter {
                 ManageClick(); 
             }
         }
+
+        if(Input.GetButtonDown("Fire2"))
+        {
+            if(gun!=null)
+            {
+                ThrowGun();
+            }
+        }
+    }
+
+    void ThrowGun()
+    {
+        gun.Throw(aim.transform.position - transform.position, throwSpeed); 
+        LeaveGun();
     }
 
     void ManageClick()

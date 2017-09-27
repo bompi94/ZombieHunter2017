@@ -27,6 +27,10 @@ public class Gun : MonoBehaviour
     [SerializeField]
     bool pickedUp = false;
 
+    float throwSpeed;
+    bool throwed; 
+    Vector3 dir = Vector3.zero; 
+
     private void Awake()
     {
         GameObject go = new GameObject();
@@ -36,6 +40,15 @@ public class Gun : MonoBehaviour
         go.GetComponent<ObjectPooler>().SetUp(bullet);
         bulletPooler = go.GetComponent<ObjectPooler>();
         actualBullets = bullets;
+        TimeManager.Instance.tick.AddListener(TimedUpdate); 
+    }
+
+    void TimedUpdate()
+    {
+        if(throwed)
+        {
+            transform.position += dir * throwSpeed * TimeManager.deltaTime; 
+        }
     }
 
     public void SetRotation(float angle)
@@ -96,5 +109,20 @@ public class Gun : MonoBehaviour
     public int GetNumberOfBullets()
     {
         return actualBullets;
+    }
+
+    public void Throw(Vector3 dir, float throwSpeed)
+    {
+        this.dir = dir;
+        this.throwSpeed = throwSpeed;
+        throwed = true; 
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.GetComponent<EnemyShooter>() || collision.gameObject.name.StartsWith("wall"))
+        {
+            throwed = false;
+        } 
     }
 }

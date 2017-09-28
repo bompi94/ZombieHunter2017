@@ -5,6 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class UIListener : MonoBehaviour {
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
+        }
+    }
+
     public void LoadGame()
     {
         SceneManager.LoadScene("MainScene"); 

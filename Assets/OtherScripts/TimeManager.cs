@@ -33,11 +33,13 @@ public class TimeManager : MonoBehaviour
 
     public void SlowTime()
     {
+        Time.fixedDeltaTime = deltaTime; 
         scale = slowTimeScale;
     }
 
     public void FastTime()
     {
+        Time.fixedDeltaTime = deltaTime; 
         scale = fastTimeScale;
     }
 
@@ -68,6 +70,13 @@ public class TimeManager : MonoBehaviour
     {
         while (true)
         {
+            //probably this can be done like 
+            //waitfor(extremelysmalltime)
+            //counter+=extremelysmalltime
+            //if(counter>deltatime)
+            //counter = 0
+            //tick.invoke
+            //this should adapt nicely to continuous time scale change
             deltaTime = normalFrameTime * scale;
             yield return new WaitForSeconds(deltaTime);
             tick.Invoke();

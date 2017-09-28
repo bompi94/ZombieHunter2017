@@ -7,7 +7,6 @@ public class EnemyShooter : Shooter
 
     GameObject player;
 
-
     protected override void Awake()
     {
         player = FindObjectOfType<PlayerMovement>().gameObject;
@@ -32,10 +31,12 @@ public class EnemyShooter : Shooter
     {
         if (canShoot && player)
         {
-            canShoot = false; 
             //should probably move somewhere
             if (PlayerInSight())
+            {
+                canShoot = false;
                 gun.Shoot();
+            }
         }
     }
 
@@ -66,19 +67,9 @@ public class EnemyShooter : Shooter
         return gun != null; 
     }
 
-    public Gun StealGun()
-    {
-        Gun g = gun;
-        LeaveGun();
-        GetComponent<Rigidbody2D>().AddForce(transform.position - player.transform.position, ForceMode2D.Impulse); 
-        return g; 
-    }
-
     public void HitByAPunch()
     {
         LeaveGun();
-        transform.position += (transform.position - player.transform.position).normalized * 2;
+        body.AddForce ((transform.position - player.transform.position).normalized, ForceMode2D.Impulse);
     }
-
-
 }

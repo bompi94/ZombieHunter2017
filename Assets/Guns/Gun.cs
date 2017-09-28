@@ -65,7 +65,7 @@ public class Gun : MonoBehaviour
         actualBullets--;
         if (actualBullets == 0)
         {
-            GunBreak();
+            print("no bullets"); 
             return false;
         }
         return true;
@@ -120,9 +120,16 @@ public class Gun : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.GetComponent<EnemyShooter>() || collision.gameObject.name.StartsWith("wall"))
+        EnemyShooter es = collision.gameObject.GetComponent<EnemyShooter>();
+        if (throwed && (es || collision.gameObject.name.StartsWith("wall")) )
         {
             throwed = false;
+            if(es)
+            {
+                es.HitByAPunch(); 
+            }
+            print("throwed"); 
+            GunBreak();
         } 
     }
 }

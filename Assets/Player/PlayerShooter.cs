@@ -48,7 +48,6 @@ public class PlayerShooter : Shooter
 
             if (gun != null)
             {
-                gun.transform.position = gunPos.transform.position;
                 Shoot();
             }
 

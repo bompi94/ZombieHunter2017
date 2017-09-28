@@ -97,15 +97,14 @@ public class PlayerShooter : Shooter
     {
         base.LeaveGun();
         rightArmAnim.SetBool("Gun", false);
-        bullseye.transform.localPosition = new Vector3(0, 1, 0);
-
+        bullseye.transform.localPosition = new Vector3(0, 1.5f, 0);
     }
 
     void Punch()
     {
         leftArmAnim.SetTrigger("Punch");
         rightArmAnim.SetTrigger("Punch");
-        nearEnemy.HitByAPunch(); 
+        nearEnemy.HitByAPunch(nearEnemy.transform.position - transform.position); 
     }
 
     protected override void TimedUpdate()

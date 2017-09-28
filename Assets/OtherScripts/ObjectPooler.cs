@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class ObjectPooler : MonoBehaviour {
 
+    [SerializeField]
     GameObject myObject;
+
     List<GameObject> Available = new List<GameObject>();
     List<GameObject> NotAvailable = new List<GameObject>();
-    GameObject folder; 
+    GameObject folder;
 
-    public void SetUp(GameObject objectToSpawn, int initialObjects = 0)
+    private void Awake()
     {
-        myObject = objectToSpawn; 
+        SetUp();
+    }
+
+    public void SetUp(int initialObjects = 0)
+    {
         folder = new GameObject();
         folder.name = myObject.name + "s";
         for (int i = 0; i < initialObjects; i++)

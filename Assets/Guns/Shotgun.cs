@@ -2,41 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shotgun : Gun {
+public class Shotgun : Gun
+{
 
     public override bool Shoot()
     {
-        if (canShoot)
-        {
-            GameObject b = bulletPooler.GetObject();
-            GameObject b1 = bulletPooler.GetObject();
-            GameObject b2 = bulletPooler.GetObject();
 
-            b.transform.position = shootPos.position;
-            b1.transform.position = shootPos.position;
-            b2.transform.position = shootPos.position;
+        //GameObject b = bulletPooler.GetObject();
+        //GameObject b1 = bulletPooler.GetObject();
+        //GameObject b2 = bulletPooler.GetObject();
 
-            float angle = 10;
+        //b.transform.position = shootPos.position;
+        //b1.transform.position = shootPos.position;
+        //b2.transform.position = shootPos.position;
 
-            Vector2 dir = shootPos.position - transform.position;
-            Vector2 dir1 = Quaternion.Euler(0, 0, angle) * dir;
-            Vector2 dir2 = Quaternion.Euler(0, 0, -angle) * dir; 
+        //float angle = 10;
 
-            b.GetComponent<Bullet>().Fire(dir, bulletPooler, damages);
-            b1.GetComponent<Bullet>().Fire(dir1 , bulletPooler, damages);
-            b2.GetComponent<Bullet>().Fire(dir2 , bulletPooler, damages);
+        //Vector2 dir = shootPos.position - transform.position;
+        //Vector2 dir1 = Quaternion.Euler(0, 0, angle) * dir;
+        //Vector2 dir2 = Quaternion.Euler(0, 0, -angle) * dir;
 
-            canShoot = false;
+        //b.GetComponent<Bullet>().Fire(dir, bulletPooler, damages);
+        //b1.GetComponent<Bullet>().Fire(dir1, bulletPooler, damages);
+        //b2.GetComponent<Bullet>().Fire(dir2, bulletPooler, damages);
 
-            actualBullets--;
-            if (actualBullets == 0)
-            {
-                GunBreak();
-                return false;
-            }
-
-            return true;
-        }
+        //actualBullets--;
+        //if (actualBullets == 0)
+        //{
+        //    GunBreak();
+        //    return false;
+        //}
+        Debug.LogError("Not implemented yet"); 
         return false;
     }
 

@@ -71,9 +71,9 @@ public class EnemyShooter : Shooter
         return gun != null; 
     }
 
-    public void HitByAPunch()
+    public void HitByAPunch(Vector3 punchDirection)
     {
         LeaveGun();
-        body.AddForce ((transform.position - player.transform.position).normalized, ForceMode2D.Impulse);
+        body.AddForce (punchDirection.normalized, ForceMode2D.Impulse);
     }
 }

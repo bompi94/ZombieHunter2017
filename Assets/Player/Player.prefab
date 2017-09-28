@@ -491,7 +491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f3a4c50eb734645b224a3c2ae284ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHP: 0
+  startingHP: 1
   healthChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -508,7 +508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12191e6c352003d4e8a258091da88edc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownTime: 1
+  cooldownTime: 0.7
   bulletsChangedEvent:
     m_PersistentCalls:
       m_Calls: []

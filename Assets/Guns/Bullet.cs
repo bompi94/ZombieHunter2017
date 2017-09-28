@@ -4,25 +4,18 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-
-    [SerializeField]
-    Rigidbody2D body;
-
     [SerializeField]
     float bulletSpeed;
 
     ObjectPooler myPooler;
     int damages;
-
     Vector3 dir;
-
     bool init = false;
-
-    LineRenderer lr; 
+    LineRenderer lineRenderer; 
 
     private void Awake()
     {
-        lr = GetComponent<LineRenderer>();
+        lineRenderer = GetComponent<LineRenderer>();
         TimeManager.Instance.tick.AddListener(TimedUpdate); 
     }
 
@@ -39,9 +32,14 @@ public class Bullet : MonoBehaviour
         if (init)
         {
             transform.position += dir * TimeManager.deltaTime;
-            lr.SetPosition(0, transform.position);
-            lr.SetPosition(1, transform.position - dir.normalized); 
+            DrawTrail(); 
         }
+    }
+
+    void DrawTrail()
+    {
+        lineRenderer.SetPosition(0, transform.position);
+        lineRenderer.SetPosition(1, transform.position - dir.normalized);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

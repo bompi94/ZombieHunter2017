@@ -8,9 +8,6 @@ public class Gun : MonoBehaviour
     protected GameObject bullet;
 
     [SerializeField]
-    protected float recoil;
-
-    [SerializeField]
     protected Transform shootPos;
 
     [SerializeField]
@@ -20,25 +17,15 @@ public class Gun : MonoBehaviour
     [SerializeField]
     protected int damages;
 
-    protected bool canShoot = true;
-
     protected ObjectPooler bulletPooler;
-
-    [SerializeField]
     bool pickedUp = false;
-
     float throwSpeed;
     bool throwed; 
     Vector3 dir = Vector3.zero; 
 
     private void Awake()
     {
-        GameObject go = new GameObject();
-        go.name = "gun pool";
-        go.transform.SetParent(gameObject.transform);
-        go.AddComponent<ObjectPooler>();
-        go.GetComponent<ObjectPooler>().SetUp(bullet);
-        bulletPooler = go.GetComponent<ObjectPooler>();
+        bulletPooler = FindObjectOfType<ObjectPooler>();
         actualBullets = bullets;
         TimeManager.Instance.tick.AddListener(TimedUpdate); 
     }
@@ -58,17 +45,26 @@ public class Gun : MonoBehaviour
 
     public virtual bool Shoot()
     {
-        GameObject b = bulletPooler.GetObject();
-        b.transform.position = shootPos.position;
-        Vector3 dir = shootPos.position - transform.position;
-        b.GetComponent<Bullet>().Fire(dir, bulletPooler, damages);
-        actualBullets--;
         if (actualBullets == 0)
         {
-            print("no bullets"); 
+            NoBullets(); 
             return false;
         }
-        return true;
+
+        else
+        {
+            GameObject b = bulletPooler.GetObject();
+            b.transform.position = shootPos.position;
+            Vector3 dir = shootPos.position - transform.position;
+            b.GetComponent<Bullet>().Fire(dir, bulletPooler, damages);
+            actualBullets--;
+            return true;
+        }
+    }
+
+    void NoBullets()
+    {
+        print("no bullets");
     }
 
     protected void GunBreak()
@@ -79,11 +75,6 @@ public class Gun : MonoBehaviour
     public bool IsFull()
     {
         return actualBullets == bullets;
-    }
-
-    public Vector3 GetRecoilVector()
-    {
-        return (transform.position - shootPos.position) * recoil;
     }
 
     public void PickedUp()
@@ -126,7 +117,7 @@ public class Gun : MonoBehaviour
             throwed = false;
             if(es)
             {
-                es.HitByAPunch(); 
+                es.HitByAPunch(dir); 
             }
             print("throwed"); 
             GunBreak();

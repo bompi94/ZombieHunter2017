@@ -6,7 +6,7 @@ public class PlayerHealth : Health {
 
     protected override void Die()
     {
-        GetComponent<EnemyExplosion>().Explode();
+        GetComponent<Explosion>().Explode();
         TimeManager.Instance.FastTime(); 
         base.Die();
     }

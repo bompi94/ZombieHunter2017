@@ -9,7 +9,7 @@ public class Shooter : MonoBehaviour
     float cooldownTime;
 
     float cooldownTimer;
-    protected bool canShoot = true; 
+    protected bool canShoot = true;
 
     protected Gun gun;
     protected Rigidbody2D body;
@@ -21,12 +21,12 @@ public class Shooter : MonoBehaviour
     protected virtual void Awake()
     {
         body = GetComponent<Rigidbody2D>();
-        TimeManager.Instance.tick.AddListener(TimedUpdate); 
+        TimeManager.Instance.tick.AddListener(TimedUpdate);
     }
 
     public void SetNearGun(Gun g)
     {
-        nearGun = g; 
+        nearGun = g;
     }
 
     protected virtual void TimedUpdate()
@@ -37,7 +37,7 @@ public class Shooter : MonoBehaviour
             if (cooldownTimer >= cooldownTime)
             {
                 canShoot = true;
-                cooldownTimer = 0; 
+                cooldownTimer = 0;
             }
         }
     }
@@ -46,20 +46,11 @@ public class Shooter : MonoBehaviour
     {
         if (canShoot)
         {
-            canShoot = false; 
+            canShoot = false;
             bool hasActuallyShot = gun.Shoot();
             if (hasActuallyShot)
-            {
-                ApplyRecoil();
-            }
-            bulletsChangedEvent.Invoke();
+                bulletsChangedEvent.Invoke();
         }
-    }
-
-    void ApplyRecoil()
-    {
-        Vector3 recoil = gun.GetRecoilVector();
-        transform.position += recoil;
     }
 
     public bool ReloadGun()

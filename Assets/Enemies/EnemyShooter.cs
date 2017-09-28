@@ -73,4 +73,12 @@ public class EnemyShooter : Shooter
         GetComponent<Rigidbody2D>().AddForce(transform.position - player.transform.position, ForceMode2D.Impulse); 
         return g; 
     }
+
+    public void HitByAPunch()
+    {
+        LeaveGun();
+        transform.position += (transform.position - player.transform.position).normalized * 2;
+    }
+
+
 }

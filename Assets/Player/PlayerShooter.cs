@@ -29,15 +29,15 @@ public class PlayerShooter : Shooter
         rightArmAnim = GetComponentsInChildren<Animator>()[0];
         leftArmAnim = GetComponentsInChildren<Animator>()[1];
         rightAnimSpeed = rightArmAnim.speed;
-        leftAnimSpeed = leftArmAnim.speed; 
+        leftAnimSpeed = leftArmAnim.speed;
     }
 
     private void Update()
     {
-        //leftArmAnim.speed = leftAnimSpeed * TimeManager.Instance.GetScale();
-        //rightArmAnim.speed = rightAnimSpeed * TimeManager.Instance.GetScale();
         if (Input.GetButtonDown("Fire1"))
         {
+            TimeManager.Instance.Impulse();
+
             if (gun != null)
             {
                 Shoot();
@@ -51,6 +51,8 @@ public class PlayerShooter : Shooter
 
         if (Input.GetButtonDown("Fire2"))
         {
+            TimeManager.Instance.Impulse();
+
             if (gun != null)
             {
                 ThrowGun();
@@ -66,19 +68,19 @@ public class PlayerShooter : Shooter
 
     void ManageClick()
     {
-        TimeManager.Instance.Impulse(); 
-        //if (nearEnemy)
-        //{
-            Punch(); 
-        //}
-        //else if (nearGun)
-        //    PickGun(nearGun);
+        if (nearEnemy)
+        {
+            Punch();
+        }
+        else if (nearGun)
+            PickGun(nearGun);
     }
 
     void Punch()
     {
         leftArmAnim.SetTrigger("Punch");
-        rightArmAnim.SetTrigger("Punch"); 
+        rightArmAnim.SetTrigger("Punch");
+        nearEnemy.HitByAPunch(); 
     }
 
     protected override void TimedUpdate()

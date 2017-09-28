@@ -31,23 +31,27 @@ public class PlayerMovement : MonoBehaviour
         timeManager.tick.AddListener(TimedUpdate); 
     }
 
-    void TimedUpdate()
+    private void Update()
     {
         float horizMovement = Input.GetAxis("Horizontal");
         float vertMovement = Input.GetAxis("Vertical");
         movement.x = horizMovement;
         movement.y = vertMovement;
 
-        if(horizMovement!=0 || vertMovement!=0)
+        if (horizMovement != 0 || vertMovement != 0)
         {
-            timeManager.FastTime(); 
+            timeManager.FastTime();
         }
 
         else
         {
-            timeManager.SlowTime(); 
+            timeManager.SlowTime();
         }
-        transform.position += movement * actualSpeed * Time.deltaTime;
+    }
+
+    void TimedUpdate()
+    {
+        transform.position += movement * actualSpeed * TimeManager.deltaTime;
     }
 
     void DoRoll()

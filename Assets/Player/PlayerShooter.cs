@@ -15,14 +15,27 @@ public class PlayerShooter : Shooter
 
     EnemyShooter nearEnemy;
 
+
+    Animator rightArmAnim;
+    Animator leftArmAnim;
+
+    float leftAnimSpeed;
+    float rightAnimSpeed;
+
     protected override void Awake()
     {
         base.Awake();
         aim = bullseye.transform.GetChild(0).gameObject;
+        rightArmAnim = GetComponentsInChildren<Animator>()[0];
+        leftArmAnim = GetComponentsInChildren<Animator>()[1];
+        rightAnimSpeed = rightArmAnim.speed;
+        leftAnimSpeed = leftArmAnim.speed; 
     }
 
     private void Update()
     {
+        //leftArmAnim.speed = leftAnimSpeed * TimeManager.Instance.GetScale();
+        //rightArmAnim.speed = rightAnimSpeed * TimeManager.Instance.GetScale();
         if (Input.GetButtonDown("Fire1"))
         {
             if (gun != null)
@@ -53,23 +66,30 @@ public class PlayerShooter : Shooter
 
     void ManageClick()
     {
+        TimeManager.Instance.Impulse(); 
+        //if (nearEnemy)
+        //{
+            Punch(); 
+        //}
+        //else if (nearGun)
+        //    PickGun(nearGun);
+    }
 
-        if (nearEnemy)
-        {
-            PickGun(nearEnemy.StealGun());
-        }
-        else if (nearGun)
-            PickGun(nearGun);
+    void Punch()
+    {
+        leftArmAnim.SetTrigger("Punch");
+        rightArmAnim.SetTrigger("Punch"); 
     }
 
     protected override void TimedUpdate()
     {
         base.TimedUpdate();
+
         if (gun != null)
         {
             gun.SetRotation(MouseRotation());
         }
-        bullseye.transform.rotation = Quaternion.Euler(0, 0, MouseRotation() + 90);
+        transform.rotation = Quaternion.Euler(0, 0, MouseRotation());
     }
 
     float StickRotation()

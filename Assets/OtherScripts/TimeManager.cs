@@ -41,6 +41,12 @@ public class TimeManager : MonoBehaviour
         scale = fastTimeScale;
     }
 
+    public void Impulse()
+    { 
+        FastTime();
+        Restart();
+    }
+
     public void Stop()
     {
         if (clockCoroutine!=null)
@@ -50,6 +56,12 @@ public class TimeManager : MonoBehaviour
     public void Work()
     {
         clockCoroutine = StartCoroutine(Clock());
+    }
+
+    void Restart()
+    {
+        Stop();
+        Work(); 
     }
 
     IEnumerator Clock()

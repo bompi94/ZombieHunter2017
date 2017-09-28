@@ -9,6 +9,9 @@ public class PlayerShooter : Shooter
     GameObject bullseye;
 
     [SerializeField]
+    GameObject gunPos; 
+
+    [SerializeField]
     float throwSpeed;
 
     GameObject aim;
@@ -34,12 +37,18 @@ public class PlayerShooter : Shooter
 
     private void Update()
     {
+        if (gun != null)
+        {
+            gun.transform.position = gunPos.transform.position;
+        }
+
         if (Input.GetButtonDown("Fire1"))
         {
             TimeManager.Instance.Impulse();
 
             if (gun != null)
             {
+                gun.transform.position = gunPos.transform.position;
                 Shoot();
             }
 
@@ -73,7 +82,21 @@ public class PlayerShooter : Shooter
             Punch();
         }
         else if (nearGun)
+        {
             PickGun(nearGun);
+        }
+    }
+
+    protected override void PickGun(Gun gun)
+    {
+        base.PickGun(gun);
+        rightArmAnim.SetBool("Gun", true);
+    }
+
+    public override void LeaveGun()
+    {
+        base.LeaveGun();
+        rightArmAnim.SetBool("Gun", false);
     }
 
     void Punch()

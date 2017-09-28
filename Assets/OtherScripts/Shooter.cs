@@ -72,7 +72,7 @@ public class Shooter : MonoBehaviour
         return false;
     }
 
-    protected void PickGun(Gun gun)
+    protected virtual void PickGun(Gun gun)
     {
         if (gun && gun.CanBePicked())
         {
@@ -86,7 +86,7 @@ public class Shooter : MonoBehaviour
         }
     }
 
-    public void LeaveGun()
+    public virtual void LeaveGun()
     {
         print("leave");
         if (gun)

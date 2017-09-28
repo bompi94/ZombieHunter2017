@@ -40,6 +40,7 @@ public class PlayerShooter : Shooter
         if (gun != null)
         {
             gun.transform.position = gunPos.transform.position;
+            bullseye.transform.localPosition = gun.transform.localPosition + new Vector3(0, 1f, 0); 
         }
 
         if (Input.GetButtonDown("Fire1"))
@@ -70,7 +71,7 @@ public class PlayerShooter : Shooter
 
     void ThrowGun()
     {
-        gun.Throw(aim.transform.position - transform.position, throwSpeed);
+        gun.Throw(aim.transform.position - gun.transform.position, throwSpeed);
         LeaveGun();
     }
 
@@ -96,6 +97,8 @@ public class PlayerShooter : Shooter
     {
         base.LeaveGun();
         rightArmAnim.SetBool("Gun", false);
+        bullseye.transform.localPosition = new Vector3(0, 1, 0);
+
     }
 
     void Punch()

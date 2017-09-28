@@ -71,8 +71,9 @@ GameObject:
   - component: {fileID: 58184811512193314}
   - component: {fileID: 114238200122272882}
   - component: {fileID: 114951113831930402}
-  - component: {fileID: 114565497625699666}
+  - component: {fileID: 114912839540443706}
   - component: {fileID: 114986658617867122}
+  - component: {fileID: 114363821637965404}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -213,7 +214,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1736184797405514}
   m_LocalRotation: {x: -0, y: -0, z: 0.8796208, w: 0.47567564}
-  m_LocalPosition: {x: 0.355, y: -0.019, z: 0}
+  m_LocalPosition: {x: 0.321, y: -0.021, z: 0}
   m_LocalScale: {x: 0.36363152, y: 0.074999996, z: 1}
   m_Children:
   - {fileID: 4172980039300714}
@@ -454,6 +455,20 @@ MonoBehaviour:
   speed: 15
   rollSpeed: 10
   rollTime: 0.4
+--- !u!114 &114363821637965404
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1186378814271262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e06b4ca68fa7b8409dff2beae7ce7f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  piece: {fileID: 1305348932838358, guid: 9edf38c5b996d874eb08e869abc0da06, type: 2}
+  numberOfPieces: 20
+  explosionForce: 30
 --- !u!114 &114379094837103764
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -465,7 +480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3362be367e3956d429b7cd7eda0decd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114565497625699666
+--- !u!114 &114912839540443706
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -473,10 +488,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1186378814271262}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19cd5aee7b2fab8469fe231c2eb2b2df, type: 3}
+  m_Script: {fileID: 11500000, guid: e7f3a4c50eb734645b224a3c2ae284ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHP: 1
+  startingHP: 0
   healthChanged:
     m_PersistentCalls:
       m_Calls: []

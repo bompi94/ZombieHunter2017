@@ -57,8 +57,12 @@ public class EnemyShooter : Shooter
     float GetToPlayerRotation()
     {
         float angle = 0;
-        Vector3 v = transform.position - player.transform.position;
-        angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg + 90;
+
+        if (player)
+        {
+            Vector3 v = transform.position - player.transform.position;
+            angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg + 90;
+        }
         return angle;
     }
 

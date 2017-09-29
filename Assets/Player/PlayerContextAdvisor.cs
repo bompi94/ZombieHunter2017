@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class PlayerContextAdvisor : MonoBehaviour
 {
+    PlayerShooter shooter;
+
+    private void Awake()
+    {
+        shooter = GetComponentInParent<PlayerShooter>(); 
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -12,15 +18,14 @@ public class PlayerContextAdvisor : MonoBehaviour
         {
             if (g.CanBePicked())
             {
-                print("near");
-                GetComponentInParent<Shooter>().SetNearGun(g);
+               shooter.SetNearGun(g);
             }
         }
 
         EnemyShooter es = collision.GetComponent<EnemyShooter>();
         if (es)
         {
-            GetComponentInParent<PlayerShooter>().SetNearEnemy(es); 
+            shooter.SetNearEnemy(es); 
         }
     }
 
@@ -29,14 +34,13 @@ public class PlayerContextAdvisor : MonoBehaviour
         Gun g = (collision.GetComponent<Gun>());
         if (g)
         {
-            print("not near");
-            GetComponentInParent<Shooter>().SetNearGun(null);
+            shooter.SetNearGun(null);
         }
 
         EnemyShooter es = collision.GetComponent<EnemyShooter>();
         if (es)
         {
-            GetComponentInParent<PlayerShooter>().SetNearEnemy(null);
+            shooter.SetNearEnemy(null);
         }
     }
 }

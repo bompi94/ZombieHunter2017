@@ -82,7 +82,7 @@ public class Gun : MonoBehaviour
         pickedUp = true;
     }
 
-    public void Leaved()
+    public void Leave()
     {
         pickedUp = false;
     }

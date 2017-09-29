@@ -12,12 +12,13 @@ public class TimeManager : MonoBehaviour
     [SerializeField]
     float fastTimeScale;
 
+    [HideInInspector]
     public UnityEvent tick = new UnityEvent();
 
     float scale;
     float timer;
 
-    float normalFrameTime = 0.01666667f;
+    const float normalFrameTime = 0.01666667f; //60fps
 
     public static TimeManager Instance;
 
@@ -49,6 +50,12 @@ public class TimeManager : MonoBehaviour
         Restart();
     }
 
+    void Restart()
+    {
+        Stop();
+        Work();
+    }
+
     public void Stop()
     {
         if (clockCoroutine!=null)
@@ -58,12 +65,6 @@ public class TimeManager : MonoBehaviour
     public void Work()
     {
         clockCoroutine = StartCoroutine(Clock());
-    }
-
-    void Restart()
-    {
-        Stop();
-        Work(); 
     }
 
     IEnumerator Clock()

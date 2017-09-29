@@ -7,10 +7,9 @@ public class Shooter : MonoBehaviour
 {
     [SerializeField]
     float cooldownTime;
-
     float cooldownTimer;
-    protected bool canShoot = true;
 
+    protected bool canShoot = true;
     protected Gun gun;
     protected Rigidbody2D body;
     protected Gun nearGun;
@@ -53,21 +52,10 @@ public class Shooter : MonoBehaviour
         }
     }
 
-    public bool ReloadGun()
-    {
-        if (gun && !gun.IsFull())
-        {
-            gun.Reload();
-            return true;
-        }
-        return false;
-    }
-
     protected virtual void PickGun(Gun gun)
     {
         if (gun && gun.CanBePicked())
         {
-            print("pickup");
             GameObject gunGameObject = gun.gameObject;
             gunGameObject.transform.SetParent(transform);
             gunGameObject.transform.position = transform.position;
@@ -79,17 +67,16 @@ public class Shooter : MonoBehaviour
 
     public virtual void LeaveGun()
     {
-        print("leave");
         if (gun)
         {
             GameObject gunGameObject = gun.gameObject;
             gunGameObject.transform.SetParent(null);
-            gun.Leaved();
+            gun.Leave();
             gun = null;
             bulletsChangedEvent.Invoke();
         }
     }
-
+        
     public int GetNumberOfBullets()
     {
         if (gun)

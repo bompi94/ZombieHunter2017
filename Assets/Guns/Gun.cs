@@ -21,7 +21,8 @@ public class Gun : MonoBehaviour
     bool pickedUp = false;
     float throwSpeed;
     bool throwed; 
-    Vector3 dir = Vector3.zero; 
+    Vector3 dir = Vector3.zero;
+    Shooter shooter; 
 
     private void Awake()
     {
@@ -64,7 +65,7 @@ public class Gun : MonoBehaviour
 
     void NoBullets()
     {
-        print("no bullets");
+        shooter.NoBullets(); 
     }
 
     protected void GunBreak()
@@ -77,14 +78,16 @@ public class Gun : MonoBehaviour
         return actualBullets == bullets;
     }
 
-    public void PickedUp()
+    public void PickedUp(Shooter shooter)
     {
         pickedUp = true;
+        this.shooter = shooter; 
     }
 
     public void Leave()
     {
         pickedUp = false;
+        shooter = null;
     }
 
     public bool CanBePicked()
@@ -122,5 +125,10 @@ public class Gun : MonoBehaviour
             print("throwed"); 
             GunBreak();
         } 
+    }
+
+    public void SetNumberOfBullets(int numberOfBullets)
+    {
+        actualBullets = numberOfBullets; 
     }
 }

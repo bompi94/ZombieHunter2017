@@ -52,6 +52,11 @@ public class Shooter : MonoBehaviour
         }
     }
 
+    public virtual void NoBullets()
+    {
+
+    }
+
     protected virtual void PickGun(Gun gun)
     {
         if (gun && gun.CanBePicked())
@@ -60,7 +65,7 @@ public class Shooter : MonoBehaviour
             gunGameObject.transform.SetParent(transform);
             gunGameObject.transform.position = transform.position;
             this.gun = gun;
-            gun.PickedUp();
+            gun.PickedUp(this);
             bulletsChangedEvent.Invoke();
         }
     }

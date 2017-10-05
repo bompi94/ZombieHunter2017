@@ -14,16 +14,18 @@ public class PlayerShooter : Shooter
     [SerializeField]
     float throwSpeed;
 
+    int minimumNumberOfCasualBullets = 2;
+    int maximumNumberOfCasualBullets = 7; 
+
     GameObject aim;
-
     EnemyShooter nearEnemy;
-
-
     Animator rightArmAnim;
     Animator leftArmAnim;
-
     float leftAnimSpeed;
     float rightAnimSpeed;
+    UIInterfaceProject UIInterface; 
+
+
 
     protected override void Awake()
     {
@@ -33,11 +35,17 @@ public class PlayerShooter : Shooter
         leftArmAnim = GetComponentsInChildren<Animator>()[1];
         rightAnimSpeed = rightArmAnim.speed;
         leftAnimSpeed = leftArmAnim.speed;
+        UIInterface = FindObjectOfType<UIInterfaceProject>();
+    }
+
+    bool Armed()
+    {
+        return gun != null;
     }
 
     private void Update()
     {
-        if (gun != null)
+        if (Armed())
         {
             gun.transform.position = gunPos.transform.position;
             bullseye.transform.localPosition = gun.transform.localPosition + new Vector3(0, 1f, 0); 
@@ -45,27 +53,46 @@ public class PlayerShooter : Shooter
 
         if (Input.GetButtonDown("Fire1"))
         {
-            TimeManager.Instance.Impulse();
-
-            if (gun != null)
-            {
-                Shoot();
-            }
-
-            else
-            {
-                ManageClick();
-            }
+            ManageLeftClick(); 
         }
 
         if (Input.GetButtonDown("Fire2"))
         {
-            TimeManager.Instance.Impulse();
+            ManageRightClick(); 
+        }
+    }
 
-            if (gun != null)
-            {
-                ThrowGun();
-            }
+    void ManageLeftClick()
+    {
+        TimeManager.Instance.Impulse();
+        if (Armed())
+        {
+            Shoot();
+        }
+        else
+        {
+            UnarmedLeftClick();
+        }
+    }
+
+    void UnarmedLeftClick()
+    {
+        if (nearGun)
+        {
+            PickGun(nearGun);
+        }
+        else if (nearEnemy)
+        {
+            Punch();
+        }
+    }
+
+    void ManageRightClick()
+    {
+        TimeManager.Instance.Impulse();
+        if (Armed())
+        {
+            ThrowGun();
         }
     }
 
@@ -75,22 +102,11 @@ public class PlayerShooter : Shooter
         LeaveGun();
     }
 
-    void ManageClick()
-    {
-        if (nearEnemy)
-        {
-            Punch();
-        }
-        else if (nearGun)
-        {
-            PickGun(nearGun);
-        }
-    }
-
     protected override void PickGun(Gun gun)
     {
         base.PickGun(gun);
         rightArmAnim.SetBool("Gun", true);
+        gun.SetNumberOfBullets(Random.Range(minimumNumberOfCasualBullets, maximumNumberOfCasualBullets)); 
     }
 
     public override void LeaveGun()
@@ -98,6 +114,11 @@ public class PlayerShooter : Shooter
         base.LeaveGun();
         rightArmAnim.SetBool("Gun", false);
         bullseye.transform.localPosition = new Vector3(0, 1.5f, 0);
+    }
+
+    public override void NoBullets()
+    {
+        UIInterface.NoBullets(); 
     }
 
     void Punch()
@@ -116,21 +137,6 @@ public class PlayerShooter : Shooter
             gun.SetRotation(MouseRotation());
         }
         transform.rotation = Quaternion.Euler(0, 0, MouseRotation());
-    }
-
-    float StickRotation()
-    {
-        float angle = 0;
-
-        float x = Input.GetAxis("YHorizontal");
-        float y = Input.GetAxis("YVertical");
-
-        if (Mathf.Abs(x) >= 0.5 || Mathf.Abs(y) >= 0.5)
-        {
-            angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg + 90;
-            angle *= -1;
-        }
-        return angle;
     }
 
     float MouseRotation()

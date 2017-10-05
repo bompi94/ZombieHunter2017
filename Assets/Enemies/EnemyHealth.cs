@@ -7,6 +7,7 @@ public class EnemyHealth : Health {
     protected override void Die()
     {
         GetComponent<Explosion>().Explode();
+        GetComponent<EnemyShooter>().LeaveGun();
         base.Die();
     }
 }

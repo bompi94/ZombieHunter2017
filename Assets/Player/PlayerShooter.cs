@@ -25,8 +25,6 @@ public class PlayerShooter : Shooter
     float rightAnimSpeed;
     UIInterfaceProject UIInterface; 
 
-
-
     protected override void Awake()
     {
         base.Awake();
@@ -36,11 +34,6 @@ public class PlayerShooter : Shooter
         rightAnimSpeed = rightArmAnim.speed;
         leftAnimSpeed = leftArmAnim.speed;
         UIInterface = FindObjectOfType<UIInterfaceProject>();
-    }
-
-    bool Armed()
-    {
-        return gun != null;
     }
 
     private void Update()
@@ -60,6 +53,11 @@ public class PlayerShooter : Shooter
         {
             ManageRightClick(); 
         }
+    }
+
+    bool Armed()
+    {
+        return gun != null;
     }
 
     void ManageLeftClick()

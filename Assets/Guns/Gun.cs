@@ -20,22 +20,22 @@ public class Gun : MonoBehaviour
     protected ObjectPooler bulletPooler;
     bool pickedUp = false;
     float throwSpeed;
-    bool throwed; 
+    bool throwed;
     Vector3 dir = Vector3.zero;
-    Shooter shooter; 
+    Shooter shooter;
 
     private void Awake()
     {
         bulletPooler = FindObjectOfType<ObjectPooler>();
         actualBullets = bullets;
-        TimeManager.Instance.tick.AddListener(TimedUpdate); 
+        TimeManager.Instance.tick.AddListener(TimedUpdate);
     }
 
     void TimedUpdate()
     {
-        if(throwed)
+        if (throwed)
         {
-            transform.position += dir * throwSpeed * TimeManager.deltaTime; 
+            transform.position += dir * throwSpeed * TimeManager.deltaTime;
         }
     }
 
@@ -48,7 +48,7 @@ public class Gun : MonoBehaviour
     {
         if (actualBullets == 0)
         {
-            NoBullets(); 
+            NoBullets();
             return false;
         }
 
@@ -65,11 +65,15 @@ public class Gun : MonoBehaviour
 
     void NoBullets()
     {
-        shooter.NoBullets(); 
+        shooter.NoBullets();
     }
 
     protected void GunBreak()
     {
+        if (throwed)
+        {
+            GetComponent<Explosion>().Explode();
+        }
         Destroy(gameObject);
     }
 
@@ -81,7 +85,7 @@ public class Gun : MonoBehaviour
     public void PickedUp(Shooter shooter)
     {
         pickedUp = true;
-        this.shooter = shooter; 
+        this.shooter = shooter;
     }
 
     public void Leave()
@@ -109,26 +113,24 @@ public class Gun : MonoBehaviour
     {
         this.dir = dir;
         this.throwSpeed = throwSpeed;
-        throwed = true; 
+        throwed = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         EnemyShooter es = collision.gameObject.GetComponent<EnemyShooter>();
-        if (throwed && (es || collision.gameObject.name.StartsWith("wall")) )
+        if (throwed && (es || collision.gameObject.name.StartsWith("wall")))
         {
-            throwed = false;
-            if(es)
+            if (es)
             {
-                es.HitByAPunch(dir); 
+                es.HitByAPunch(dir);
             }
-            print("throwed"); 
             GunBreak();
-        } 
+        }
     }
 
     public void SetNumberOfBullets(int numberOfBullets)
     {
-        actualBullets = numberOfBullets; 
+        actualBullets = numberOfBullets;
     }
 }

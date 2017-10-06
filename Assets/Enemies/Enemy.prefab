@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114635956794158160}
   - component: {fileID: 114118096877742914}
   - component: {fileID: 114393091624086278}
-  - component: {fileID: 114243512814343802}
+  - component: {fileID: 114016670125146074}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -244,6 +244,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6666667, y: 0.6666667}
   m_EdgeRadius: 0
+--- !u!114 &114016670125146074
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1343352533180572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06a67a8a07bfed84a9765816c5c5ebf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
 --- !u!114 &114118096877742914
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -261,17 +273,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
---- !u!114 &114243512814343802
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1343352533180572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d0a37adfd601434e82b4f2cb34ad274, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114327268562231458
 MonoBehaviour:
   m_ObjectHideFlags: 1

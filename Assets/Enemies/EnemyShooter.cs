@@ -56,7 +56,8 @@ public class EnemyShooter : Shooter
         {
             if (ray[i].transform.gameObject.GetComponent<PlayerMovement>())
                 return true;
-            if (ray[i].transform.gameObject.name.StartsWith("wall"))
+            if (ray[i].transform.gameObject.name.StartsWith("wall") || 
+                (ray[i].transform.gameObject.GetComponent<EnemyShooter>() && ray[i].transform.gameObject.GetComponent<EnemyShooter>()!=this))
                 return false;
         }
         return false;
@@ -73,11 +74,6 @@ public class EnemyShooter : Shooter
             angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg + 90;
         }
         return angle;
-    }
-
-    public bool HasGun()
-    {
-        return gun != null;
     }
 
     public void HitByAPunch(Vector3 punchDirection)

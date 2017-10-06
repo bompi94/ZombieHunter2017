@@ -89,4 +89,8 @@ public class Shooter : MonoBehaviour
         else
             return 0;
     }
+    public bool HasGun()
+    {
+        return gun != null;
+    }
 }

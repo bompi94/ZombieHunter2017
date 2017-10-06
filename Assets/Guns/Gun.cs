@@ -99,7 +99,7 @@ public class Gun : MonoBehaviour
 
     public bool CanBePicked()
     {
-        return !pickedUp;
+        return !pickedUp && !throwed;
     }
 
     public void Reload()

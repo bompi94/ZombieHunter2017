@@ -7,6 +7,9 @@ public class EnemyShooter : Shooter
 
     GameObject player;
 
+    float initialWaitTime = 0.5f;
+    float timer;
+
     protected override void Awake()
     {
         player = FindObjectOfType<PlayerMovement>().gameObject;
@@ -19,12 +22,18 @@ public class EnemyShooter : Shooter
 
     protected override void TimedUpdate()
     {
-        base.TimedUpdate(); 
+        base.TimedUpdate();
+
+        timer += TimeManager.deltaTime;
+
         if (gun)
         {
             gun.SetRotation(GetToPlayerRotation());
-            Shoot();
-        }
+            if (timer >= initialWaitTime)
+            {
+                Shoot();
+            }
+        } 
     }
 
     protected override void Shoot()
@@ -68,12 +77,13 @@ public class EnemyShooter : Shooter
 
     public bool HasGun()
     {
-        return gun != null; 
+        return gun != null;
     }
 
     public void HitByAPunch(Vector3 punchDirection)
     {
         LeaveGun();
-        body.AddForce (punchDirection.normalized, ForceMode2D.Impulse);
+        GetComponent<EnemyMovement>().Confused(); 
+        body.AddForce(punchDirection.normalized, ForceMode2D.Impulse);
     }
 }

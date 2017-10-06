@@ -11,6 +11,12 @@ public class EnemyMovement : MonoBehaviour
     GameObject player;
     Vector3 direction;
     EnemyShooter shooter;
+    bool confused;
+    float confusedTimer;
+    float confusionTimeEnd = 2;
+
+    Gun nearest;
+    float minGunDistanceToPick = 0.5f;
 
     private void Awake()
     {
@@ -22,24 +28,65 @@ public class EnemyMovement : MonoBehaviour
     private void Update()
     {
         Movement();
+        
+        if(!shooter.HasGun() && nearest && Vector3.Distance(transform.position, nearest.transform.position)<minGunDistanceToPick)
+        {
+            shooter.PickGun(nearest); 
+        }
+
+    }
+
+    void TimedUpdate()
+    {
+        if (confused)
+        {
+            confusedTimer += Time.deltaTime;
+            if (confusedTimer >= confusionTimeEnd)
+            {
+                confused = false;
+                confusedTimer = 0;
+            }
+        }
+
+        transform.position += direction * speed * TimeManager.deltaTime;
     }
 
     void Movement()
     {
+        direction = Vector3.zero;
+
         if (player && SeePlayer())
         {
             if (shooter.HasGun())
                 direction = (player.transform.position - transform.position).normalized;
-            else
-                direction = (transform.position - player.transform.position).normalized;
-
+            else if (!confused)
+                direction = (GetNearestGunPosition() - transform.position).normalized;
         }
 
-        else
-        {
-            direction = Vector3.zero;
-        }
     }
+
+    Vector3 GetNearestGunPosition()
+    {
+        Gun[] guns = FindObjectsOfType<Gun>();
+        float dist = Mathf.Infinity;
+         nearest = null; 
+        for (int i = 0; i < guns.Length; i++)
+        {
+
+            float d = Vector3.Distance(guns[i].transform.position, transform.position);
+
+            if (guns[i].CanBePicked() && d < dist)
+            {
+                nearest = guns[i];
+                dist = d;
+            }
+        }
+        if (nearest)
+            return nearest.transform.position;
+        return Vector3.zero;
+    }
+
+
 
     bool SeePlayer()
     {
@@ -58,8 +105,9 @@ public class EnemyMovement : MonoBehaviour
         return false;
     }
 
-    void TimedUpdate()
+    public void Confused()
     {
-        transform.position += direction * speed * TimeManager.deltaTime;
+        confused = true;
+        confusedTimer = 0;
     }
 }

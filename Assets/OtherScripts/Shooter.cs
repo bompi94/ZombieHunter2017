@@ -57,7 +57,7 @@ public class Shooter : MonoBehaviour
 
     }
 
-    protected virtual void PickGun(Gun gun)
+    public virtual void PickGun(Gun gun)
     {
         if (gun && gun.CanBePicked())
         {

@@ -92,7 +92,7 @@ public class PlayerShooter : Shooter
         LeaveGun();
     }
 
-    protected override void PickGun(Gun gun)
+    public override void PickGun(Gun gun)
     {
         base.PickGun(gun);
         gun.SetNumberOfBullets(Random.Range(minimumNumberOfCasualBullets, maximumNumberOfCasualBullets)); 

@@ -38,8 +38,7 @@ public class EnemyMovement : MonoBehaviour {
     {
         RaycastHit2D[] rays = Physics2D.RaycastAll(transform.position, (player.transform.position - transform.position));
         for (int i = 0; i < rays.Length; i++)
-        {
-            print(rays[i].collider.gameObject.name); 
+        {  
             if (rays[i].collider.gameObject.CompareTag("platform"))
             {
                 return false;

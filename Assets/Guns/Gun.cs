@@ -86,12 +86,16 @@ public class Gun : MonoBehaviour
     {
         pickedUp = true;
         this.shooter = shooter;
+        GetComponent<Collider2D>().isTrigger = false;
     }
 
     public void Leave()
     {
         pickedUp = false;
         shooter = null;
+        if (!throwed)
+            GetComponent<Collider2D>().isTrigger = true;
+
     }
 
     public bool CanBePicked()
@@ -118,7 +122,7 @@ public class Gun : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        print("coll"); 
+        print("coll");
         EnemyShooter es = collision.gameObject.GetComponent<EnemyShooter>();
         if (throwed && (es || collision.gameObject.name.StartsWith("wall")))
         {

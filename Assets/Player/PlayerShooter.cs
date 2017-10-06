@@ -19,20 +19,12 @@ public class PlayerShooter : Shooter
 
     GameObject aim;
     EnemyShooter nearEnemy;
-    Animator rightArmAnim;
-    Animator leftArmAnim;
-    float leftAnimSpeed;
-    float rightAnimSpeed;
     UIInterfaceProject UIInterface; 
 
     protected override void Awake()
     {
         base.Awake();
         aim = bullseye.transform.GetChild(0).gameObject;
-        rightArmAnim = GetComponentsInChildren<Animator>()[0];
-        leftArmAnim = GetComponentsInChildren<Animator>()[1];
-        rightAnimSpeed = rightArmAnim.speed;
-        leftAnimSpeed = leftArmAnim.speed;
         UIInterface = FindObjectOfType<UIInterfaceProject>();
     }
 
@@ -103,14 +95,12 @@ public class PlayerShooter : Shooter
     protected override void PickGun(Gun gun)
     {
         base.PickGun(gun);
-        rightArmAnim.SetBool("Gun", true);
         gun.SetNumberOfBullets(Random.Range(minimumNumberOfCasualBullets, maximumNumberOfCasualBullets)); 
     }
 
     public override void LeaveGun()
     {
         base.LeaveGun();
-        rightArmAnim.SetBool("Gun", false);
         bullseye.transform.localPosition = new Vector3(0, 1.5f, 0);
     }
 
@@ -121,8 +111,6 @@ public class PlayerShooter : Shooter
 
     void Punch()
     {
-        leftArmAnim.SetTrigger("Punch");
-        rightArmAnim.SetTrigger("Punch");
         nearEnemy.HitByAPunch(nearEnemy.transform.position - transform.position); 
     }
 

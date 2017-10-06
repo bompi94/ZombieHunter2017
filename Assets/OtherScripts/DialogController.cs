@@ -32,7 +32,7 @@ public class DialogController : MonoBehaviour {
         {
             text.text = words[wordIndex];
             wordIndex++;
-            yield return new WaitForSeconds(timeBetweenWords * Time.timeScale);
+            yield return new WaitForSeconds(timeBetweenWords);
         }
         panel.SetActive(false);
         wordIndex = 0; 

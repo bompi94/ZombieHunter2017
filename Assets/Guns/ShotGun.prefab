@@ -37,6 +37,7 @@ GameObject:
   - component: {fileID: 212189631920597864}
   - component: {fileID: 61706621211725744}
   - component: {fileID: 114749669268429006}
+  - component: {fileID: 114127185786867816}
   m_Layer: 0
   m_Name: ShotGun
   m_TagString: Untagged
@@ -96,6 +97,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6666667, y: 0.6666667}
   m_EdgeRadius: 0
+--- !u!114 &114127185786867816
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1426954679321722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e06b4ca68fa7b8409dff2beae7ce7f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  piece: {fileID: 1074542513777276, guid: 867c43a300eaa1545b6b2b52ab2f0c1b, type: 2}
+  numberOfPieces: 10
+  explosionForce: 20
 --- !u!114 &114749669268429006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -108,12 +123,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 1431405534531034, guid: 3ae675336dc45e948b30080962947883, type: 2}
-  recoil: 0.1
   shootPos: {fileID: 4810449156009728}
-  coolDown: 1
   bullets: 5
   damages: 1
-  pickedUp: 0
 --- !u!212 &212189631920597864
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -147,7 +159,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 6a38a53acd7e89646abfc8351f631788, type: 3}
-  m_Color: {r: 0.034482718, g: 1, b: 0, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.21379304, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

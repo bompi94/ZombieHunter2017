@@ -14,18 +14,21 @@ public class PlayerContextAdvisor : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Gun g = (collision.GetComponent<Gun>());
+        EnemyShooter es = collision.GetComponent<EnemyShooter>();
+
         if (g)
         {
             if (g.CanBePicked())
             {
-               shooter.SetNearGun(g);
+                HighLightObject(g.gameObject);
+                shooter.SetNearGun(g);
             }
         }
 
-        EnemyShooter es = collision.GetComponent<EnemyShooter>();
-        if (es)
+        else if (es)
         {
-            shooter.SetNearEnemy(es); 
+            shooter.SetNearEnemy(es);
+            HighLightObject(es.gameObject);
         }
     }
 
@@ -42,5 +45,13 @@ public class PlayerContextAdvisor : MonoBehaviour
         {
             shooter.SetNearEnemy(null);
         }
+    }
+
+    void HighLightObject(GameObject go)
+    {
+    }
+
+    void DeHighLightObject(GameObject go)
+    {
     }
 }

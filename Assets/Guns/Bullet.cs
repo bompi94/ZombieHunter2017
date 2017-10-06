@@ -42,6 +42,12 @@ public class Bullet : MonoBehaviour
         lineRenderer.SetPosition(1, transform.position - dir.normalized);
     }
 
+    void HideTrail()
+    {
+        lineRenderer.SetPosition(0, transform.position);
+        lineRenderer.SetPosition(1, transform.position);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject other = collision.gameObject;
@@ -60,7 +66,8 @@ public class Bullet : MonoBehaviour
     void Dismiss()
     {
         dir = Vector3.zero;
-        init = false; 
+        init = false;
+        HideTrail();
         myPooler.GameObjectReturnsAvailable(gameObject);
     }
 }

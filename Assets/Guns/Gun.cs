@@ -116,8 +116,9 @@ public class Gun : MonoBehaviour
         throwed = true;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
+        print("coll"); 
         EnemyShooter es = collision.gameObject.GetComponent<EnemyShooter>();
         if (throwed && (es || collision.gameObject.name.StartsWith("wall")))
         {

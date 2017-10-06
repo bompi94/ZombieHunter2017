@@ -95,7 +95,6 @@ public class Gun : MonoBehaviour
         shooter = null;
         if (!throwed)
             GetComponent<Collider2D>().isTrigger = true;
-
     }
 
     public bool CanBePicked()

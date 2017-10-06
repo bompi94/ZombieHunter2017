@@ -12,15 +12,8 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 movement = Vector3.zero;
 
-    [SerializeField]
-    float rollSpeed;
-
-    [SerializeField]
-    float rollTime;
-
-    float rollTimer = 0;
-
-    bool rolling = false;
+    float horizMovement;
+    float vertMovement;
 
     TimeManager timeManager; 
 
@@ -33,11 +26,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        float horizMovement = Input.GetAxis("Horizontal");
-        float vertMovement = Input.GetAxis("Vertical");
+        horizMovement = Input.GetAxis("Horizontal");
+        vertMovement = Input.GetAxis("Vertical");
         movement.x = horizMovement;
         movement.y = vertMovement;
+    }
 
+    void TimedUpdate()
+    {
         if (horizMovement != 0 || vertMovement != 0)
         {
             timeManager.FastTime();
@@ -47,26 +43,7 @@ public class PlayerMovement : MonoBehaviour
         {
             timeManager.SlowTime();
         }
-    }
-
-    void TimedUpdate()
-    {
         transform.position += movement * actualSpeed * TimeManager.deltaTime;
-    }
-
-    void DoRoll()
-    {
-        rolling = true;
-        actualSpeed = rollSpeed;
-        gameObject.layer = LayerMask.NameToLayer("Bullets");
-    }
-
-    void EndRoll()
-    {
-        rolling = false;
-        actualSpeed = speed;
-        rollTimer = 0;
-        gameObject.layer = LayerMask.NameToLayer("Default");
     }
 
 }

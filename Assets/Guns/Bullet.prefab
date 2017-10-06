@@ -90,8 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0be6b2aa36ec05e438974f6b7a4c98b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  body: {fileID: 50021219187841176}
-  bulletSpeed: 30
+  bulletSpeed: 20
 --- !u!120 &120243308542194326
 LineRenderer:
   m_ObjectHideFlags: 1

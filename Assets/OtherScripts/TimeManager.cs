@@ -19,6 +19,7 @@ public class TimeManager : MonoBehaviour
     float timer;
 
     const float normalFrameTime = 0.01666667f; //60fps
+    const float normalFixedDeltaTime = 0.02f;
 
     public static TimeManager Instance;
 
@@ -34,14 +35,16 @@ public class TimeManager : MonoBehaviour
 
     public void SlowTime()
     {
-        Time.fixedDeltaTime = deltaTime; 
         scale = slowTimeScale;
+        Time.fixedDeltaTime = normalFixedDeltaTime * scale;
+
     }
 
     public void FastTime()
     {
-        Time.fixedDeltaTime = deltaTime; 
         scale = fastTimeScale;
+        Time.fixedDeltaTime = normalFixedDeltaTime * scale;
+
     }
 
     public void Impulse()

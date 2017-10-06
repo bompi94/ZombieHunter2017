@@ -58,15 +58,11 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4829089054517430}
+  - component: {fileID: 212089128102471194}
   - component: {fileID: 61103783402931258}
   - component: {fileID: 114854306287695702}
   - component: {fileID: 114851564739009782}
   - component: {fileID: 114679862920090512}
-  - component: {fileID: 61212300741193004}
-  - component: {fileID: 212089128102471194}
-  - component: {fileID: 114440780357658508}
-  - component: {fileID: 114327268562231458}
-  - component: {fileID: 114583039932141752}
   m_Layer: 0
   m_Name: BasicGun (1)
   m_TagString: Untagged
@@ -219,31 +215,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6666667, y: 0.6666667}
   m_EdgeRadius: 0
---- !u!61 &61212300741193004
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1777494188327352}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.33333334}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 0.6666667, y: 0.6666667}
-    newSize: {x: 0.6666667, y: 0.6666667}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.6666667, y: 0.6666667}
-  m_EdgeRadius: 0
 --- !u!114 &114016670125146074
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -273,21 +244,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
---- !u!114 &114327268562231458
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1777494188327352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ad378ddc6e5fd143ab7eeda10e5bc13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet: {fileID: 1431405534531034, guid: 3ae675336dc45e948b30080962947883, type: 2}
-  shootPos: {fileID: 0}
-  bullets: 2
-  damages: 1
 --- !u!114 &114393091624086278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -313,33 +269,6 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114440780357658508
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1777494188327352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e06b4ca68fa7b8409dff2beae7ce7f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  piece: {fileID: 1074542513777276, guid: 867c43a300eaa1545b6b2b52ab2f0c1b, type: 2}
-  numberOfPieces: 10
-  explosionForce: 30
---- !u!114 &114583039932141752
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1777494188327352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7901b4fbcb2b14c4ab4f67a82f5bf01a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: {r: 1, g: 0, b: 0, a: 1}
-  outlineSize: 1
 --- !u!114 &114635956794158160
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -382,7 +311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   piece: {fileID: 1074542513777276, guid: 867c43a300eaa1545b6b2b52ab2f0c1b, type: 2}
-  numberOfPieces: 10
+  numberOfPieces: 5
   explosionForce: 30
 --- !u!114 &114854306287695702
 MonoBehaviour:
@@ -397,7 +326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 1431405534531034, guid: 3ae675336dc45e948b30080962947883, type: 2}
   shootPos: {fileID: 4956335878601440}
-  bullets: 2
+  bullets: 40
   damages: 1
 --- !u!212 &212089128102471194
 SpriteRenderer:

@@ -15,7 +15,7 @@ public class PlayerShooter : Shooter
     float throwSpeed;
 
     int minimumNumberOfCasualBullets = 2;
-    int maximumNumberOfCasualBullets = 7; 
+    int maximumNumberOfCasualBullets = 5; 
 
     GameObject aim;
     EnemyShooter nearEnemy;

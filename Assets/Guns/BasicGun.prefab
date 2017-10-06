@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   piece: {fileID: 1074542513777276, guid: 867c43a300eaa1545b6b2b52ab2f0c1b, type: 2}
-  numberOfPieces: 10
+  numberOfPieces: 5
   explosionForce: 30
 --- !u!114 &114641853465590866
 MonoBehaviour:

@@ -18,6 +18,9 @@ public class EnemyMovement : MonoBehaviour
     Gun nearest;
     float minGunDistanceToPick = 0.5f;
 
+    [SerializeField]
+    GameObject confusedSignal; 
+
     private void Awake()
     {
         player = FindObjectOfType<PlayerMovement>().gameObject;
@@ -43,8 +46,7 @@ public class EnemyMovement : MonoBehaviour
             confusedTimer += Time.deltaTime;
             if (confusedTimer >= confusionTimeEnd)
             {
-                confused = false;
-                confusedTimer = 0;
+                NoMoreConfused(); 
             }
         }
 
@@ -55,7 +57,7 @@ public class EnemyMovement : MonoBehaviour
     {
         direction = Vector3.zero;
 
-        if (player && SeePlayer())
+        if (player && SeePlayer() && !confused)
         {
             if (shooter.HasGun())
                 direction = (player.transform.position - transform.position).normalized;
@@ -109,5 +111,13 @@ public class EnemyMovement : MonoBehaviour
     {
         confused = true;
         confusedTimer = 0;
+        confusedSignal.SetActive(true); 
+    }
+
+    void NoMoreConfused()
+    {
+        confused = false;
+        confusedTimer = 0;
+        confusedSignal.SetActive(false);
     }
 }

@@ -19,22 +19,28 @@ public class EnemyMovement : MonoBehaviour
     float minGunDistanceToPick = 0.5f;
 
     [SerializeField]
-    GameObject confusedSignal; 
+    GameObject confusedSignal;
 
     private void Awake()
     {
-        player = FindObjectOfType<PlayerMovement>().gameObject;
+        if (FindObjectOfType<PlayerMovement>())
+            player = FindObjectOfType<PlayerMovement>().gameObject;
         shooter = GetComponent<EnemyShooter>();
         TimeManager.Instance.tick.AddListener(TimedUpdate);
+    }
+
+    bool CanPickGun()
+    {
+        return !shooter.HasGun() && nearest && Vector3.Distance(transform.position, nearest.transform.position) < minGunDistanceToPick;
     }
 
     private void Update()
     {
         Movement();
-        
-        if(!shooter.HasGun() && nearest && Vector3.Distance(transform.position, nearest.transform.position)<minGunDistanceToPick)
+
+        if (!confused && CanPickGun())
         {
-            shooter.PickGun(nearest); 
+            shooter.PickGun(nearest);
         }
 
     }
@@ -46,7 +52,7 @@ public class EnemyMovement : MonoBehaviour
             confusedTimer += Time.deltaTime;
             if (confusedTimer >= confusionTimeEnd)
             {
-                NoMoreConfused(); 
+                NoMoreConfused();
             }
         }
 
@@ -71,7 +77,7 @@ public class EnemyMovement : MonoBehaviour
     {
         Gun[] guns = FindObjectsOfType<Gun>();
         float dist = Mathf.Infinity;
-         nearest = null; 
+        nearest = null;
         for (int i = 0; i < guns.Length; i++)
         {
 
@@ -111,7 +117,7 @@ public class EnemyMovement : MonoBehaviour
     {
         confused = true;
         confusedTimer = 0;
-        confusedSignal.SetActive(true); 
+        confusedSignal.SetActive(true);
     }
 
     void NoMoreConfused()

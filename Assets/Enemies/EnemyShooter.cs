@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class EnemyShooter : Shooter
 {
-
     GameObject player;
 
-    float reflexesTime = 0.5f;
+    float reflexesTime = 0.8f;
     float reflexesTimer;
 
     protected override void Awake()
     {
-        player = FindObjectOfType<PlayerMovement>().gameObject;
+        if (FindObjectOfType<PlayerMovement>())
+            player = FindObjectOfType<PlayerMovement>().gameObject;
+
         if (transform.GetChild(0) != null)
         {
             PickGun(transform.GetChild(0).GetComponent<Gun>());
@@ -26,23 +27,29 @@ public class EnemyShooter : Shooter
 
         if (HasGun())
         {
-            reflexesTimer += TimeManager.deltaTime;
-            Aim();
-            if (canShoot && player && reflexesTimer>=reflexesTime)
+            if (PlayerInSight())
             {
-                Shoot();
+                reflexesTimer += TimeManager.deltaTime;
+                Aim();
+                if (canShoot && player && reflexesTimer >= reflexesTime)
+                {
+                    Shoot();
+                }
             }
+
+            else
+            {
+                reflexesTimer = 0;
+            }
+
         }
     }
 
     protected override void Shoot()
     {
-        if (PlayerInSight())
-        {
-            AimWithError();
-            canShoot = false;
-            gun.Shoot();
-        }
+        AimWithError();
+        canShoot = false;
+        gun.Shoot();
     }
 
     void Aim()
@@ -87,7 +94,7 @@ public class EnemyShooter : Shooter
 
     public override void LeaveGun()
     {
-        reflexesTimer = 0; 
+        reflexesTimer = 0;
         base.LeaveGun();
     }
 
@@ -95,7 +102,6 @@ public class EnemyShooter : Shooter
     {
         LeaveGun();
         GetComponent<EnemyMovement>().Confused();
-        reflexesTimer = 0;
         body.AddForce(punchDirection.normalized, ForceMode2D.Impulse);
     }
 }

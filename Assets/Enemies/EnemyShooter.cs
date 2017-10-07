@@ -7,8 +7,8 @@ public class EnemyShooter : Shooter
 
     GameObject player;
 
-    float initialWaitTime = 0.5f;
-    float timer;
+    float reflexesTime = 0.5f;
+    float reflexesTimer;
 
     protected override void Awake()
     {
@@ -24,47 +24,56 @@ public class EnemyShooter : Shooter
     {
         base.TimedUpdate();
 
-        timer += TimeManager.deltaTime;
-
-        if (gun)
+        if (HasGun())
         {
-            gun.SetRotation(GetToPlayerRotation());
-            if (timer >= initialWaitTime)
+            reflexesTimer += TimeManager.deltaTime;
+            Aim();
+            if (canShoot && player && reflexesTimer>=reflexesTime)
             {
                 Shoot();
-            }
-        } 
-    }
-
-    protected override void Shoot()
-    {
-        if (canShoot && player)
-        {
-            //should probably move somewhere
-            if (PlayerInSight())
-            {
-                canShoot = false;
-                gun.Shoot();
             }
         }
     }
 
+    protected override void Shoot()
+    {
+        if (PlayerInSight())
+        {
+            AimWithError();
+            canShoot = false;
+            gun.Shoot();
+        }
+    }
+
+    void Aim()
+    {
+        float angle = GetToPlayerRotationAngle();
+        gun.SetRotation(angle);
+    }
+
+    void AimWithError()
+    {
+        float angle = GetToPlayerRotationAngle();
+        float aimError = Random.Range(-10f, 10f);
+        gun.SetRotation(angle + aimError);
+    }
+
     bool PlayerInSight()
     {
-        RaycastHit2D[] ray = Physics2D.RaycastAll(transform.position, Quaternion.Euler(0, 0, GetToPlayerRotation()) * Vector2.up, 10000);
+        RaycastHit2D[] ray = Physics2D.RaycastAll(transform.position, Quaternion.Euler(0, 0, GetToPlayerRotationAngle()) * Vector2.up, 10000);
         for (int i = 0; i < ray.Length; i++)
         {
             if (ray[i].transform.gameObject.GetComponent<PlayerMovement>())
                 return true;
-            if (ray[i].transform.gameObject.name.StartsWith("wall") || 
-                (ray[i].transform.gameObject.GetComponent<EnemyShooter>() && ray[i].transform.gameObject.GetComponent<EnemyShooter>()!=this))
+            if (ray[i].transform.gameObject.name.StartsWith("wall") ||
+                (ray[i].transform.gameObject.GetComponent<EnemyShooter>() && ray[i].transform.gameObject.GetComponent<EnemyShooter>() != this))
                 return false;
         }
         return false;
     }
 
 
-    float GetToPlayerRotation()
+    float GetToPlayerRotationAngle()
     {
         float angle = 0;
 
@@ -76,11 +85,17 @@ public class EnemyShooter : Shooter
         return angle;
     }
 
+    public override void LeaveGun()
+    {
+        reflexesTimer = 0; 
+        base.LeaveGun();
+    }
+
     public void HitByAPunch(Vector3 punchDirection)
     {
         LeaveGun();
         GetComponent<EnemyMovement>().Confused();
-        timer = 0;
+        reflexesTimer = 0;
         body.AddForce(punchDirection.normalized, ForceMode2D.Impulse);
     }
 }

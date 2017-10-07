@@ -79,7 +79,8 @@ public class EnemyShooter : Shooter
     public void HitByAPunch(Vector3 punchDirection)
     {
         LeaveGun();
-        GetComponent<EnemyMovement>().Confused(); 
+        GetComponent<EnemyMovement>().Confused();
+        timer = 0;
         body.AddForce(punchDirection.normalized, ForceMode2D.Impulse);
     }
 }

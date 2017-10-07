@@ -9,8 +9,10 @@ public class EnemyHealth : Health {
     protected override void Die()
     {
         spawner = FindObjectOfType<EnemySpawner>();
-
         spawner.EnemyDead();
+
+        FindObjectOfType<ScoreManager>().IncreaseScore(); 
+
         GetComponent<Explosion>().Explode();
         GetComponent<EnemyShooter>().LeaveGun();
 

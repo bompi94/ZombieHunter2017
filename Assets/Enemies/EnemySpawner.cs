@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
 
-    float spawnTime = 0; 
+    float spawnTime = 0;
     float timer;
 
     [SerializeField]
@@ -14,16 +14,19 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     int initialEnemyNumber = 4;
 
-    int numberOfEnemies; 
+    int numberOfEnemies;
 
     [SerializeField]
     Transform[] spawnPositions;
 
-    bool initialSpawnDone; 
+    bool initialSpawnDone;
+
+    GameObject player;
 
     private void Awake()
     {
         TimeManager.Instance.tick.AddListener(TimedUpdate);
+        player = FindObjectOfType<PlayerMovement>().gameObject;
         InitialSpawn();
     }
 
@@ -31,10 +34,10 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < initialEnemyNumber; i++)
         {
-            Spawn(); 
+            Spawn();
         }
 
-        initialSpawnDone = true; 
+        initialSpawnDone = true;
     }
 
     void TimedUpdate()
@@ -52,27 +55,36 @@ public class EnemySpawner : MonoBehaviour
 
     void Spawn()
     {
-        //choose position to spawn
         Vector3 pos = GetSpawnPosition();
         Instantiate(enemy, pos, Quaternion.identity);
         numberOfEnemies++;
-        UpdateSpawnTime(); 
+        UpdateSpawnTime();
     }
 
     Vector3 GetSpawnPosition()
     {
+        const float minDistanceToPlayer = 5;
+        Vector3 pos;
         int index = Random.Range(0, spawnPositions.Length);
-        return spawnPositions[index].position;
+        pos = spawnPositions[index].position;
+
+        while (player && Vector3.Distance(pos, player.transform.position) < minDistanceToPlayer)
+        {
+            index = Random.Range(0, spawnPositions.Length);
+            pos = spawnPositions[index].position;
+        }
+
+        return pos;
     }
 
     public void EnemyDead()
     {
         numberOfEnemies--;
-        UpdateSpawnTime(); 
+        UpdateSpawnTime();
     }
 
     void UpdateSpawnTime()
     {
-        spawnTime = numberOfEnemies; 
+        spawnTime = numberOfEnemies;
     }
 }

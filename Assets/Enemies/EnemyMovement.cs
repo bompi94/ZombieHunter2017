@@ -93,7 +93,10 @@ public class EnemyMovement : MonoBehaviour
         if (nearest)
             return nearest.transform.position;
 
-        return transform.position + (transform.position - player.transform.position).normalized;
+        if (player)
+            return transform.position + (transform.position - player.transform.position).normalized;
+
+        return Vector3.zero; 
     }
 
 

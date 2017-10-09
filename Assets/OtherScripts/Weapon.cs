@@ -61,7 +61,7 @@ public class Weapon : MonoBehaviour
         GetComponent<Collider2D>().isTrigger = false;
     }
 
-    public void Leave()
+    public virtual void Leave()
     {
         pickedUp = false;
         shooter = null;

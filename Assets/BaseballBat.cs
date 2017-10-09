@@ -72,4 +72,10 @@ public class BaseballBat : Weapon
         base.PickedUp(shooter);
     }
 
+    public override void Leave()
+    {
+        swinging = false;
+        base.Leave();
+    }
+
 }

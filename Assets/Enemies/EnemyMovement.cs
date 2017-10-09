@@ -67,9 +67,10 @@ public class EnemyMovement : MonoBehaviour
         {
             if (shooter.HasWeapon())
                 direction = (player.transform.position - transform.position).normalized;
-            else if (!confused)
-                direction = (GetNearestGunPosition() - transform.position).normalized;
         }
+
+        if (!confused && !shooter.HasWeapon())
+            direction = (GetNearestGunPosition() - transform.position).normalized;
 
     }
 

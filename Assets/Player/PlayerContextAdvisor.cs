@@ -11,7 +11,7 @@ public class PlayerContextAdvisor : MonoBehaviour
         shooter = GetComponentInParent<PlayerShooter>(); 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         Weapon g = collision.GetComponent<Weapon>();
         EnemyShooter es = collision.GetComponent<EnemyShooter>();

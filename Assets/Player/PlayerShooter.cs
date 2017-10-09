@@ -9,6 +9,13 @@ public class PlayerShooter : Shooter
     GameObject bullseye;
 
     [SerializeField]
+    GameObject rightHand;
+    [SerializeField]
+    GameObject leftHand;
+
+    Vector3 rightHandPos, leftHandPos; 
+
+    [SerializeField]
     float throwSpeed;
 
     int minimumNumberOfCasualBullets = 2;
@@ -21,6 +28,8 @@ public class PlayerShooter : Shooter
     protected override void Awake()
     {
         base.Awake();
+        rightHandPos = rightHand.transform.localPosition;
+        leftHandPos = leftHand.transform.localPosition; 
         aim = bullseye.transform.GetChild(0).gameObject;
         UIInterface = FindObjectOfType<UIInterfaceProject>();
     }
@@ -63,6 +72,15 @@ public class PlayerShooter : Shooter
         }
     }
 
+    protected override void UseWeapon()
+    {
+        if (weapon.GetWType() == WeaponType.Bat)
+        {
+            SetHandsPos(-weapon.transform.localPosition);
+        }
+        base.UseWeapon();
+    }
+
     void ManageRightClick()
     {
         TimeManager.Instance.Impulse();
@@ -86,11 +104,13 @@ public class PlayerShooter : Shooter
         {
             cooldownTime = 0.5f; 
             ((Gun)weapon).SetNumberOfBullets(Random.Range(minimumNumberOfCasualBullets, maximumNumberOfCasualBullets));
+            SetHandsPos(gunPos.transform.localPosition);
         }
 
         if (weapon.GetWType() == WeaponType.Bat)
         {
             cooldownTime = 0.0f;
+            SetHandsPos(batPos.transform.localPosition);
         }
     }
 
@@ -98,6 +118,7 @@ public class PlayerShooter : Shooter
     {
         base.LeaveWeapon();
         bullseye.transform.localPosition = new Vector3(0, 1.5f, 0);
+        SetHandsPos(rightHandPos, leftHandPos); 
     }
 
     public override void NoBullets()
@@ -139,4 +160,16 @@ public class PlayerShooter : Shooter
     {
         nearEnemy = es;
     }
+
+    void SetHandsPos(Vector3 rightPos)
+    {
+        SetHandsPos(rightPos, rightPos); 
+    }
+
+    void SetHandsPos(Vector3 rightPos, Vector3 leftPos)
+    {
+        rightHand.transform.localPosition = rightPos;
+        leftHand.transform.localPosition = leftPos;
+    }
+    
 }

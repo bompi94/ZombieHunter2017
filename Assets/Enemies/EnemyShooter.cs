@@ -25,7 +25,7 @@ public class EnemyShooter : Shooter
     {
         base.TimedUpdate();
 
-        if (HasGun())
+        if (HasWeapon())
         {
             if (PlayerInSight())
             {
@@ -33,7 +33,7 @@ public class EnemyShooter : Shooter
                 Aim();
                 if (canUseWeapon && player && reflexesTimer >= reflexesTime)
                 {
-                    Shoot();
+                    UseWeapon();
                 }
             }
 
@@ -45,7 +45,7 @@ public class EnemyShooter : Shooter
         }
     }
 
-    protected override void Shoot()
+    protected override void UseWeapon()
     {
         AimWithError();
         canUseWeapon = false;

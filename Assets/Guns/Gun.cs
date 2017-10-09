@@ -35,6 +35,11 @@ public class Gun : Weapon
         }
     }
 
+    public override void Use()
+    {
+        Shoot(); 
+    }
+
     public virtual bool Shoot()
     {
         if (actualBullets == 0)

@@ -25,6 +25,7 @@ public class Shooter : MonoBehaviour
 
     public void SetNearWeapon(Weapon g)
     {
+        print("set near weapon");
         nearWeapon = g;
     }
 
@@ -46,7 +47,7 @@ public class Shooter : MonoBehaviour
         }
     }
 
-    protected virtual void Shoot()
+    protected virtual void UseWeapon()
     {
         if (canUseWeapon)
         {
@@ -62,6 +63,9 @@ public class Shooter : MonoBehaviour
 
     public virtual void PickWeapon(Weapon weapon)
     {
+
+        print("pick weapon generic shooter"); 
+
         if (weapon!=null && weapon.CanBePicked())
         {
             GameObject gunGameObject = weapon.gameObject;
@@ -69,7 +73,6 @@ public class Shooter : MonoBehaviour
             gunGameObject.transform.position = transform.position;
             this.weapon = weapon;
             weapon.PickedUp(this);
-            bulletsChangedEvent.Invoke();
         }
     }
 
@@ -92,7 +95,7 @@ public class Shooter : MonoBehaviour
         else
             return 0;
     }
-    public bool HasGun()
+    public bool HasWeapon()
     {
         return weapon != null;
     }

@@ -31,7 +31,7 @@ public class EnemyMovement : MonoBehaviour
 
     bool CanPickGun()
     {
-        return !shooter.HasGun() && nearest && Vector3.Distance(transform.position, nearest.transform.position) < minGunDistanceToPick;
+        return !shooter.HasWeapon() && nearest && Vector3.Distance(transform.position, nearest.transform.position) < minGunDistanceToPick;
     }
 
     private void Update()
@@ -65,7 +65,7 @@ public class EnemyMovement : MonoBehaviour
 
         if (player && SeePlayer() && !confused)
         {
-            if (shooter.HasGun())
+            if (shooter.HasWeapon())
                 direction = (player.transform.position - transform.position).normalized;
             else if (!confused)
                 direction = (GetNearestGunPosition() - transform.position).normalized;

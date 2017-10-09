@@ -14,7 +14,7 @@ public class Weapon : MonoBehaviour
     protected Shooter shooter;
     protected bool pickedUp = false;
     protected float throwSpeed;
-    protected bool throwed;
+    protected bool throwed = false;
     protected Vector3 throwdir = Vector3.zero;
 
 

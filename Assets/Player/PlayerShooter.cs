@@ -9,17 +9,20 @@ public class PlayerShooter : Shooter
     GameObject bullseye;
 
     [SerializeField]
-    GameObject gunPos; 
+    GameObject gunPos;
+
+    [SerializeField]
+    GameObject batPos;
 
     [SerializeField]
     float throwSpeed;
 
     int minimumNumberOfCasualBullets = 2;
-    int maximumNumberOfCasualBullets = 5; 
+    int maximumNumberOfCasualBullets = 5;
 
     GameObject aim;
     EnemyShooter nearEnemy;
-    UIInterfaceProject UIInterface; 
+    UIInterfaceProject UIInterface;
 
     protected override void Awake()
     {
@@ -32,19 +35,29 @@ public class PlayerShooter : Shooter
     {
         if (Armed())
         {
-            weapon.transform.position = gunPos.transform.position;
-            bullseye.transform.localPosition = weapon.transform.localPosition + new Vector3(0, 1f, 0); 
+            PlaceWeapon();
         }
 
         if (Input.GetButtonDown("Fire1"))
         {
-            ManageLeftClick(); 
+            ManageLeftClick();
         }
 
         if (Input.GetButtonDown("Fire2"))
         {
-            ManageRightClick(); 
+            ManageRightClick();
         }
+    }
+
+    void PlaceWeapon()
+    {
+        if (weapon.GetWType() == WeaponType.Gun)
+            weapon.transform.position = gunPos.transform.position;
+
+        if (weapon.GetWType() == WeaponType.Bat)
+            weapon.transform.position = batPos.transform.position;
+
+        bullseye.transform.localPosition = weapon.transform.localPosition + new Vector3(0, 1f, 0);
     }
 
     void ManageLeftClick()
@@ -52,7 +65,7 @@ public class PlayerShooter : Shooter
         TimeManager.Instance.Impulse();
         if (Armed())
         {
-            Shoot();
+            UseWeapon();
         }
         else
         {
@@ -89,11 +102,13 @@ public class PlayerShooter : Shooter
 
     public override void PickWeapon(Weapon weapon)
     {
+        print("pick weapon in player shooter"); 
+
         base.PickWeapon(weapon);
-        
+
         //TODO this is horrible
-        if(weapon.GetWType() == WeaponType.Gun)
-            ((Gun)weapon).SetNumberOfBullets(Random.Range(minimumNumberOfCasualBullets, maximumNumberOfCasualBullets)); 
+        if (weapon.GetWType() == WeaponType.Gun)
+            ((Gun)weapon).SetNumberOfBullets(Random.Range(minimumNumberOfCasualBullets, maximumNumberOfCasualBullets));
     }
 
     public override void LeaveWeapon()
@@ -104,12 +119,12 @@ public class PlayerShooter : Shooter
 
     public override void NoBullets()
     {
-        UIInterface.NoBullets(); 
+        UIInterface.NoBullets();
     }
 
     void Punch()
     {
-        nearEnemy.HitByAPunch(nearEnemy.transform.position - transform.position); 
+        nearEnemy.HitByAPunch(nearEnemy.transform.position - transform.position);
     }
 
     protected override void TimedUpdate()

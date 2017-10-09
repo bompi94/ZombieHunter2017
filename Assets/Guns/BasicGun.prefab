@@ -36,9 +36,9 @@ GameObject:
   - component: {fileID: 4178501746678276}
   - component: {fileID: 212022266945300464}
   - component: {fileID: 61666933048704056}
-  - component: {fileID: 114080258828097672}
   - component: {fileID: 114370869714951850}
   - component: {fileID: 114381886595165170}
+  - component: {fileID: 114208260039392896}
   m_Layer: 9
   m_Name: BasicGun
   m_TagString: Untagged
@@ -129,7 +129,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6666667, y: 0.6666667}
   m_EdgeRadius: 0
---- !u!114 &114080258828097672
+--- !u!114 &114208260039392896
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 1431405534531034, guid: 3ae675336dc45e948b30080962947883, type: 2}
   shootPos: {fileID: 4506415076133850}
-  bullets: 2
+  bullets: 7
   damages: 1
 --- !u!114 &114320808805555808
 MonoBehaviour:

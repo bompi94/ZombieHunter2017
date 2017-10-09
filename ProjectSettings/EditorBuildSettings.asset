@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainScene.unity
     guid: e13d12bc0941e2a41974822d8ba17370
+  - enabled: 1
+    path: Assets/Scenes/HatSelection.unity
+    guid: be7dcbbac59afc745bca33594733940d

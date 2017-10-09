@@ -15,18 +15,50 @@ public class ScoreManager : MonoBehaviour {
 
     int bestScore;
 
-    const string bestScoreKey = "BestScore"; 
+    const string bestScoreKey = "BestScore";
+
+    int n;
 
     private void Awake()
     {
         bestScore = PlayerPrefs.GetInt(bestScoreKey);
-        UpdateBestScoreUI(); 
+        UpdateBestScoreUI();
+        n = PlayerPrefs.GetInt("HatNumber");
     }
 
     public void IncreaseScore()
     {
         score++;
-        UpdateScoreUI(); 
+        UpdateScoreUI();
+        CheckHatUnlock(); 
+    }
+
+    void CheckHatUnlock()
+    {
+        if(score >= 5 && n == 0)
+        {
+            PlayerPrefs.SetInt("HatNumber", 1);
+            n = 1;
+            UnlockedHat();
+        }
+
+        else if(score >= 10 && n <= 1)
+        {
+            PlayerPrefs.SetInt("HatNumber", 2);
+            n = 2;
+            UnlockedHat();
+        }
+        else if (score >= 15 && n <= 2)
+        {
+            PlayerPrefs.SetInt("HatNumber", 3);
+            n = 3;
+            UnlockedHat();
+        }
+    }
+
+    void UnlockedHat()
+    {
+        print("unlocked hat!"); 
     }
 
     public void GameEnded()

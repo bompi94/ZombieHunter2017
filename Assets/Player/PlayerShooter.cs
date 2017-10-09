@@ -18,7 +18,7 @@ public class PlayerShooter : Shooter
     [SerializeField]
     float throwSpeed;
 
-    int minimumNumberOfCasualBullets = 2;
+    int minimumNumberOfCasualBullets = 3;
     int maximumNumberOfCasualBullets = 5;
 
     GameObject aim;

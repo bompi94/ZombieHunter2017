@@ -24,6 +24,11 @@ public class UIListener : MonoBehaviour {
         SceneManager.LoadScene("Menu");
     }
 
+    public void HatSelection()
+    {
+        SceneManager.LoadScene("HatSelection");
+    }
+
     public void ResumeFromPause()
     {
         FindObjectOfType<UIUpdater>().Pause(); 

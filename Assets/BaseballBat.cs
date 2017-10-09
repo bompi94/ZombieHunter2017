@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class BaseballBat : Weapon {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private void Awake()
+    {
+        type = WeaponType.Bat; 
+    }
+
+    public override void Use()
+    {
+        print("swinging my bat"); 
+    }
+
 }

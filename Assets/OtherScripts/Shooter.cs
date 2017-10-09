@@ -70,7 +70,7 @@ public class Shooter : MonoBehaviour
         {
             GameObject gunGameObject = weapon.gameObject;
             gunGameObject.transform.SetParent(transform);
-            gunGameObject.transform.position = transform.position;
+            gunGameObject.transform.localPosition = transform.localPosition;
             this.weapon = weapon;
             weapon.PickedUp(this);
         }

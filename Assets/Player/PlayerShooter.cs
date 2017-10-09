@@ -52,12 +52,16 @@ public class PlayerShooter : Shooter
     void PlaceWeapon()
     {
         if (weapon.GetWType() == WeaponType.Gun)
+        {
             weapon.transform.position = gunPos.transform.position;
+        }
 
-        if (weapon.GetWType() == WeaponType.Bat)
+        else if (weapon.GetWType() == WeaponType.Bat)
+        {
             weapon.transform.position = batPos.transform.position;
+        }
 
-        bullseye.transform.localPosition = weapon.transform.localPosition + new Vector3(0, 1f, 0);
+        //bullseye.transform.localPosition = weapon.transform.localPosition + new Vector3(0, 1f, 0);
     }
 
     void ManageLeftClick()
@@ -142,12 +146,9 @@ public class PlayerShooter : Shooter
     {
         float angle = 0;
         Vector3 mousePositionInWorldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
         Vector3 v = -mousePositionInWorldPoint + transform.position;
-
         float x = v.x;
         float y = v.y;
-
         if (Mathf.Abs(x) >= 0.5 || Mathf.Abs(y) >= 0.5)
         {
             angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg + 90;

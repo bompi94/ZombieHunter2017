@@ -11,12 +11,12 @@ public class Bullet : MonoBehaviour
     int damages;
     Vector3 dir;
     bool init = false;
-    LineRenderer lineRenderer; 
+    LineRenderer lineRenderer;
 
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
-        TimeManager.Instance.tick.AddListener(TimedUpdate); 
+        TimeManager.Instance.tick.AddListener(TimedUpdate);
     }
 
     public void Fire(Vector2 direction, ObjectPooler pooler, int damages)
@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
         dir = direction * bulletSpeed;
         myPooler = pooler;
         this.damages = damages;
-        init = true; 
+        init = true;
     }
 
     private void TimedUpdate()
@@ -32,13 +32,13 @@ public class Bullet : MonoBehaviour
         if (init)
         {
             transform.position += dir * TimeManager.deltaTime;
-            DrawTrail(); 
+            DrawTrail();
         }
     }
 
     public void Deflect()
     {
-        dir *= -1; 
+        dir *= -1;
     }
 
     void DrawTrail()
@@ -56,7 +56,7 @@ public class Bullet : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject other = collision.gameObject;
-        DealWithCollision(other); 
+        DealWithCollision(other);
     }
 
     void DealWithCollision(GameObject other)
@@ -65,10 +65,7 @@ public class Bullet : MonoBehaviour
         {
             other.GetComponent<Health>().TakeDamage(damages);
         }
-        else if (!other.GetComponent<Weapon>())
-        {
-            Dismiss();
-        } 
+        Dismiss();
     }
 
     public void EnemyHit()

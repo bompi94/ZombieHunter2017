@@ -9,6 +9,9 @@ public class EnemyShooter : Shooter
     float reflexesTime = 0.8f;
     float reflexesTimer;
 
+    float closeTime = 0.5f;
+    float closeTimer = 0; 
+
     protected override void Awake()
     {
         if (FindObjectOfType<PlayerMovement>())
@@ -60,8 +63,20 @@ public class EnemyShooter : Shooter
         if(weapon.GetWType() == WeaponType.Bat)
         {
             float d = Vector3.Distance(player.transform.position, transform.position);
-            if ( d < 2)
-                base.UseWeapon();
+            if (d < 4)
+            {
+                closeTimer += TimeManager.deltaTime; 
+                if(closeTimer>=closeTime)
+                {
+                    base.UseWeapon();
+                    closeTimer = 0; 
+                }
+            }
+
+            else
+            {
+                closeTimer = 0; 
+            }
         }
 
     }

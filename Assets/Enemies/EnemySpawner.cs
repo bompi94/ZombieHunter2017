@@ -9,7 +9,7 @@ public class EnemySpawner : MonoBehaviour
     float timer;
 
     [SerializeField]
-    GameObject enemy;
+    GameObject[] enemies;
 
     [SerializeField]
     int initialEnemyNumber = 4;
@@ -56,9 +56,16 @@ public class EnemySpawner : MonoBehaviour
     void Spawn()
     {
         Vector3 pos = GetSpawnPosition();
-        Instantiate(enemy, pos, Quaternion.identity);
+        Instantiate(ChooseEnemy(), pos, Quaternion.identity);
         numberOfEnemies++;
         UpdateSpawnTime();
+    }
+
+    GameObject ChooseEnemy()
+    {
+        GameObject enemy;
+        enemy = enemies[Random.Range(0, enemies.Length)]; 
+        return enemy; 
     }
 
     Vector3 GetSpawnPosition()

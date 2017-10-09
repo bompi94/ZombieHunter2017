@@ -82,9 +82,16 @@ public class PlayerShooter : Shooter
     {
         base.PickWeapon(weapon);
 
-        //TODO this is horrible
         if (weapon.GetWType() == WeaponType.Gun)
+        {
+            cooldownTime = 0.5f; 
             ((Gun)weapon).SetNumberOfBullets(Random.Range(minimumNumberOfCasualBullets, maximumNumberOfCasualBullets));
+        }
+
+        if (weapon.GetWType() == WeaponType.Bat)
+        {
+            cooldownTime = 0.0f;
+        }
     }
 
     public override void LeaveWeapon()

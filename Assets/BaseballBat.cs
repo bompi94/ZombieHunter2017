@@ -30,7 +30,7 @@ public class BaseballBat : Weapon
             Vector3 dir = (destination - transform.localPosition).normalized;
             Vector3 swingVector = dir * swingSpeed * TimeManager.deltaTime;
             transform.localPosition += swingVector;
-            transform.localPosition = new Vector3(transform.localPosition.x, .5f, transform.localPosition.z); 
+            transform.localPosition = new Vector3(transform.localPosition.x, .9f, transform.localPosition.z); 
 
             if(Mathf.Abs(transform.localPosition.x - destination.x)<0.5)
             {
@@ -57,10 +57,13 @@ public class BaseballBat : Weapon
 
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        base.OnCollisionEnter2D(collision); 
-        if(swinging && collision.gameObject.GetComponent<EnemyHealth>())
+        base.OnCollisionEnter2D(collision);
+
+        GameObject other = collision.gameObject;
+
+        if (!throwed && swinging && other.GetComponent<Health>())
         {
-            collision.gameObject.GetComponent<EnemyHealth>().TakeDamage(1); 
+            other.GetComponent<Health>().TakeDamage(1);
         }
     }
 

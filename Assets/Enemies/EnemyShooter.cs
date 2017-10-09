@@ -51,15 +51,25 @@ public class EnemyShooter : Shooter
 
     protected override void UseWeapon()
     {
-        AimWithError();
-        canUseWeapon = false;
-        weapon.Use();
+        if (weapon.GetWType() == WeaponType.Gun)
+        {
+            AimWithError();
+            base.UseWeapon();
+        }
+
+        if(weapon.GetWType() == WeaponType.Bat)
+        {
+            float d = Vector3.Distance(player.transform.position, transform.position);
+            if ( d < 2)
+                base.UseWeapon();
+        }
+
     }
 
     void Aim()
     {
         float angle = GetToPlayerRotationAngle();
-        weapon.SetRotation(angle);
+        transform.rotation = Quaternion.Euler(0, 0, angle); 
     }
 
     void AimWithError()
@@ -105,5 +115,23 @@ public class EnemyShooter : Shooter
         LeaveWeapon();
         GetComponent<EnemyMovement>().Confused();
         body.AddForce(punchDirection.normalized, ForceMode2D.Impulse);
+    }
+
+    public override void PickWeapon(Weapon weapon)
+    {
+        base.PickWeapon(weapon);
+
+        if (weapon)
+        {
+            if (weapon.GetWType() == WeaponType.Gun)
+            {
+                cooldownTime = 0.8f;
+            }
+
+            if (weapon.GetWType() == WeaponType.Bat)
+            {
+                cooldownTime = 0.8f;
+            }
+        }
     }
 }

@@ -5,8 +5,7 @@ using UnityEngine.Events;
 
 public class Shooter : MonoBehaviour
 {
-    [SerializeField]
-    float cooldownTime;
+    protected float cooldownTime;
     float cooldownTimer;
 
     [SerializeField]
@@ -73,13 +72,13 @@ public class Shooter : MonoBehaviour
             GameObject gunGameObject = weapon.gameObject;
             gunGameObject.transform.SetParent(transform);
             gunGameObject.transform.localPosition = transform.localPosition;
+            gunGameObject.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
             this.weapon = weapon;
             weapon.PickedUp(this);
             PlaceWeapon();
         }
 
     }
-
 
     void PlaceWeapon()
     {

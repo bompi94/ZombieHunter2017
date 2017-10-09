@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 61065636070592258}
   - component: {fileID: 114552493967340062}
   - component: {fileID: 114936267905265894}
+  - component: {fileID: 114012815458618892}
   m_Layer: 0
   m_Name: BaseballBat
   m_TagString: Untagged
@@ -97,6 +98,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.13235146, y: 1.0762771}
   m_EdgeRadius: 0
+--- !u!114 &114012815458618892
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1992739467652322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e06b4ca68fa7b8409dff2beae7ce7f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  piece: {fileID: 1074542513777276, guid: 867c43a300eaa1545b6b2b52ab2f0c1b, type: 2}
+  numberOfPieces: 5
+  explosionForce: 30
 --- !u!114 &114552493967340062
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -152,7 +167,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: f5a5eb3f50f230446be9df3bc68b4c84, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0

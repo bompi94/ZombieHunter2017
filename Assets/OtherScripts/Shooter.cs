@@ -9,10 +9,10 @@ public class Shooter : MonoBehaviour
     float cooldownTime;
     float cooldownTimer;
 
-    protected bool canShoot = true;
-    protected Gun gun;
+    protected bool canUseWeapon = true;
+    protected Weapon weapon;
     protected Rigidbody2D body;
-    protected Gun nearGun;
+    protected Weapon nearWeapon;
 
     [HideInInspector]
     public UnityEvent bulletsChangedEvent = new UnityEvent();
@@ -23,19 +23,24 @@ public class Shooter : MonoBehaviour
         TimeManager.Instance.tick.AddListener(TimedUpdate);
     }
 
-    public void SetNearGun(Gun g)
+    public void SetNearWeapon(Weapon g)
     {
-        nearGun = g;
+        nearWeapon = g;
+    }
+
+    public bool Armed()
+    {
+        return weapon != null;
     }
 
     protected virtual void TimedUpdate()
     {
-        if (!canShoot)
+        if (!canUseWeapon)
         {
             cooldownTimer += TimeManager.deltaTime;
             if (cooldownTimer >= cooldownTime)
             {
-                canShoot = true;
+                canUseWeapon = true;
                 cooldownTimer = 0;
             }
         }
@@ -43,12 +48,10 @@ public class Shooter : MonoBehaviour
 
     protected virtual void Shoot()
     {
-        if (canShoot)
+        if (canUseWeapon)
         {
-            canShoot = false;
-            bool hasActuallyShot = gun.Shoot();
-            if (hasActuallyShot)
-                bulletsChangedEvent.Invoke();
+            canUseWeapon = false;
+            weapon.Use();
         }
     }
 
@@ -57,40 +60,40 @@ public class Shooter : MonoBehaviour
 
     }
 
-    public virtual void PickGun(Gun gun)
+    public virtual void PickWeapon(Weapon weapon)
     {
-        if (gun && gun.CanBePicked())
+        if (weapon!=null && weapon.CanBePicked())
         {
-            GameObject gunGameObject = gun.gameObject;
+            GameObject gunGameObject = weapon.gameObject;
             gunGameObject.transform.SetParent(transform);
             gunGameObject.transform.position = transform.position;
-            this.gun = gun;
-            gun.PickedUp(this);
+            this.weapon = weapon;
+            weapon.PickedUp(this);
             bulletsChangedEvent.Invoke();
         }
     }
 
-    public virtual void LeaveGun()
+    public virtual void LeaveWeapon()
     {
-        if (gun)
+        if (weapon)
         {
-            GameObject gunGameObject = gun.gameObject;
+            GameObject gunGameObject = weapon.gameObject;
             gunGameObject.transform.SetParent(null);
-            gun.Leave();
-            gun = null;
+            weapon.Leave();
+            weapon = null;
             bulletsChangedEvent.Invoke();
         }
     }
         
     public int GetNumberOfBullets()
     {
-        if (gun)
-            return gun.GetNumberOfBullets();
+        if (weapon.GetWType() == WeaponType.Gun)
+            return ((Gun)weapon).GetNumberOfBullets();
         else
             return 0;
     }
     public bool HasGun()
     {
-        return gun != null;
+        return weapon != null;
     }
 }

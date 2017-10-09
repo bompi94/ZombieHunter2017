@@ -14,7 +14,7 @@ public class EnemyHealth : Health {
         FindObjectOfType<ScoreManager>().IncreaseScore(); 
 
         GetComponent<Explosion>().Explode();
-        GetComponent<EnemyShooter>().LeaveGun();
+        GetComponent<EnemyShooter>().LeaveWeapon();
 
         base.Die();
     }

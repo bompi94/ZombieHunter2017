@@ -32,8 +32,8 @@ public class PlayerShooter : Shooter
     {
         if (Armed())
         {
-            gun.transform.position = gunPos.transform.position;
-            bullseye.transform.localPosition = gun.transform.localPosition + new Vector3(0, 1f, 0); 
+            weapon.transform.position = gunPos.transform.position;
+            bullseye.transform.localPosition = weapon.transform.localPosition + new Vector3(0, 1f, 0); 
         }
 
         if (Input.GetButtonDown("Fire1"))
@@ -45,11 +45,6 @@ public class PlayerShooter : Shooter
         {
             ManageRightClick(); 
         }
-    }
-
-    bool Armed()
-    {
-        return gun != null;
     }
 
     void ManageLeftClick()
@@ -67,9 +62,9 @@ public class PlayerShooter : Shooter
 
     void UnarmedLeftClick()
     {
-        if (nearGun)
+        if (nearWeapon)
         {
-            PickGun(nearGun);
+            PickWeapon(nearWeapon);
         }
         else if (nearEnemy)
         {
@@ -88,19 +83,22 @@ public class PlayerShooter : Shooter
 
     void ThrowGun()
     {
-        gun.Throw(aim.transform.position - gun.transform.position, throwSpeed);
-        LeaveGun();
+        weapon.Throw(aim.transform.position - weapon.transform.position, throwSpeed);
+        LeaveWeapon();
     }
 
-    public override void PickGun(Gun gun)
+    public override void PickWeapon(Weapon weapon)
     {
-        base.PickGun(gun);
-        gun.SetNumberOfBullets(Random.Range(minimumNumberOfCasualBullets, maximumNumberOfCasualBullets)); 
+        base.PickWeapon(weapon);
+        
+        //TODO this is horrible
+        if(weapon.GetWType() == WeaponType.Gun)
+            ((Gun)weapon).SetNumberOfBullets(Random.Range(minimumNumberOfCasualBullets, maximumNumberOfCasualBullets)); 
     }
 
-    public override void LeaveGun()
+    public override void LeaveWeapon()
     {
-        base.LeaveGun();
+        base.LeaveWeapon();
         bullseye.transform.localPosition = new Vector3(0, 1.5f, 0);
     }
 
@@ -118,9 +116,9 @@ public class PlayerShooter : Shooter
     {
         base.TimedUpdate();
 
-        if (gun != null)
+        if (weapon != null)
         {
-            gun.SetRotation(MouseRotation());
+            weapon.SetRotation(MouseRotation());
         }
         transform.rotation = Quaternion.Euler(0, 0, MouseRotation());
     }

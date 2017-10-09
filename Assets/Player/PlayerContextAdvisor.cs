@@ -13,7 +13,7 @@ public class PlayerContextAdvisor : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Gun g = (collision.GetComponent<Gun>());
+        Weapon g = (collision.GetComponent<Weapon>());
         EnemyShooter es = collision.GetComponent<EnemyShooter>();
 
         if (g)
@@ -21,7 +21,7 @@ public class PlayerContextAdvisor : MonoBehaviour
             if (g.CanBePicked() && !shooter.HasGun())
             {
                 HighLightObject(g.gameObject);
-                shooter.SetNearGun(g);
+                shooter.SetNearWeapon(g);
                 GetComponentInParent<UIUpdater>().ShowPickPanel(); 
             }
         }
@@ -35,10 +35,10 @@ public class PlayerContextAdvisor : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Gun g = (collision.GetComponent<Gun>());
+        Weapon g = (collision.GetComponent<Weapon>());
         if (g)
         {
-            shooter.SetNearGun(null);
+            shooter.SetNearWeapon(null);
             DeHighLightObject(g.gameObject); 
         }
 

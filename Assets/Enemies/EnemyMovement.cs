@@ -15,7 +15,7 @@ public class EnemyMovement : MonoBehaviour
     float confusedTimer;
     float confusionTimeEnd = 2;
 
-    Gun nearest;
+    Weapon nearest;
     float minGunDistanceToPick = 0.5f;
 
     [SerializeField]
@@ -40,7 +40,7 @@ public class EnemyMovement : MonoBehaviour
 
         if (!confused && CanPickGun())
         {
-            shooter.PickGun(nearest);
+            shooter.PickWeapon(nearest);
         }
 
     }
@@ -75,7 +75,7 @@ public class EnemyMovement : MonoBehaviour
 
     Vector3 GetNearestGunPosition()
     {
-        Gun[] guns = FindObjectsOfType<Gun>();
+        Weapon[] guns = FindObjectsOfType<Weapon>();
         float dist = Mathf.Infinity;
         nearest = null;
         for (int i = 0; i < guns.Length; i++)

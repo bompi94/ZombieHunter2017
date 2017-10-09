@@ -16,7 +16,7 @@ public class EnemyShooter : Shooter
 
         if (transform.GetChild(0) != null)
         {
-            PickGun(transform.GetChild(0).GetComponent<Gun>());
+            PickWeapon(transform.GetChild(0).GetComponent<Weapon>());
         }
         base.Awake();
     }
@@ -31,7 +31,7 @@ public class EnemyShooter : Shooter
             {
                 reflexesTimer += TimeManager.deltaTime;
                 Aim();
-                if (canShoot && player && reflexesTimer >= reflexesTime)
+                if (canUseWeapon && player && reflexesTimer >= reflexesTime)
                 {
                     Shoot();
                 }
@@ -48,21 +48,21 @@ public class EnemyShooter : Shooter
     protected override void Shoot()
     {
         AimWithError();
-        canShoot = false;
-        gun.Shoot();
+        canUseWeapon = false;
+        weapon.Use();
     }
 
     void Aim()
     {
         float angle = GetToPlayerRotationAngle();
-        gun.SetRotation(angle);
+        weapon.SetRotation(angle);
     }
 
     void AimWithError()
     {
         float angle = GetToPlayerRotationAngle();
         float aimError = Random.Range(-10f, 10f);
-        gun.SetRotation(angle + aimError);
+        weapon.SetRotation(angle + aimError);
     }
 
     bool PlayerInSight()
@@ -92,15 +92,15 @@ public class EnemyShooter : Shooter
         return angle;
     }
 
-    public override void LeaveGun()
+    public override void LeaveWeapon()
     {
         reflexesTimer = 0;
-        base.LeaveGun();
+        base.LeaveWeapon();
     }
 
     public void HitByAPunch(Vector3 punchDirection)
     {
-        LeaveGun();
+        LeaveWeapon();
         GetComponent<EnemyMovement>().Confused();
         body.AddForce(punchDirection.normalized, ForceMode2D.Impulse);
     }

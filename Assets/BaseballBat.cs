@@ -18,24 +18,24 @@ public class BaseballBat : Weapon
 
     protected override void Awake()
     {
-        base.Awake(); 
+        base.Awake();
         type = WeaponType.Bat;
     }
 
     protected override void TimedUpdate()
     {
-        base.TimedUpdate(); 
+        base.TimedUpdate();
         if (swinging)
         {
             Vector3 dir = (destination - transform.localPosition).normalized;
             Vector3 swingVector = dir * swingSpeed * TimeManager.deltaTime;
             transform.localPosition += swingVector;
-            transform.localPosition = new Vector3(transform.localPosition.x, .9f, transform.localPosition.z); 
+            transform.localPosition = new Vector3(transform.localPosition.x, .9f, transform.localPosition.z);
 
-            if(Mathf.Abs(transform.localPosition.x - destination.x)<0.5)
+            if (Mathf.Abs(transform.localPosition.x - destination.x) < 0.5)
             {
                 transform.localPosition = destination;
-                swinging = false; 
+                swinging = false;
             }
         }
     }
@@ -50,7 +50,7 @@ public class BaseballBat : Weapon
         if (!swinging)
         {
             localX = transform.localPosition.x;
-            destination = new Vector3(-localX, transform.localPosition.y,transform.localPosition.z);
+            destination = new Vector3(-localX, transform.localPosition.y, transform.localPosition.z);
             swinging = true;
         }
     }
@@ -58,13 +58,17 @@ public class BaseballBat : Weapon
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
         base.OnCollisionEnter2D(collision);
-
         GameObject other = collision.gameObject;
-
-        if (!throwed && swinging && other.GetComponent<Health>())
+        if (!throwed && swinging)
         {
-            other.GetComponent<Health>().TakeDamage(1);
+            SwingedOn(other); 
         }
+    }
+
+    void SwingedOn(GameObject other)
+    {
+        if (other.GetComponent<Health>())
+            other.GetComponent<Health>().TakeDamage(1);
     }
 
     public override void PickedUp(Shooter shooter)

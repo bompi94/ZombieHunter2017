@@ -36,6 +36,11 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    public void Deflect()
+    {
+        dir *= -1; 
+    }
+
     void DrawTrail()
     {
         lineRenderer.SetPosition(0, transform.position);
@@ -51,11 +56,19 @@ public class Bullet : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject other = collision.gameObject;
+        DealWithCollision(other); 
+    }
+
+    void DealWithCollision(GameObject other)
+    {
         if (other.GetComponent<Health>())
         {
             other.GetComponent<Health>().TakeDamage(damages);
         }
-        Dismiss();
+        else if (!other.GetComponent<Weapon>())
+        {
+            Dismiss();
+        } 
     }
 
     public void EnemyHit()

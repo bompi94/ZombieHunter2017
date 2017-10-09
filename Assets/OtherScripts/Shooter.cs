@@ -9,6 +9,12 @@ public class Shooter : MonoBehaviour
     float cooldownTime;
     float cooldownTimer;
 
+    [SerializeField]
+    protected GameObject gunPos;
+
+    [SerializeField]
+    protected GameObject batPos;
+
     protected bool canUseWeapon = true;
     protected Weapon weapon;
     protected Rigidbody2D body;
@@ -25,7 +31,6 @@ public class Shooter : MonoBehaviour
 
     public void SetNearWeapon(Weapon g)
     {
-        print("set near weapon");
         nearWeapon = g;
     }
 
@@ -58,14 +63,11 @@ public class Shooter : MonoBehaviour
 
     public virtual void NoBullets()
     {
-
+        Debug.LogError("NOT IMPLEMENTED NO BULLETS IN SHOOTER"); 
     }
 
     public virtual void PickWeapon(Weapon weapon)
     {
-
-        print("pick weapon generic shooter"); 
-
         if (weapon!=null && weapon.CanBePicked())
         {
             GameObject gunGameObject = weapon.gameObject;
@@ -73,6 +75,22 @@ public class Shooter : MonoBehaviour
             gunGameObject.transform.localPosition = transform.localPosition;
             this.weapon = weapon;
             weapon.PickedUp(this);
+            PlaceWeapon();
+        }
+
+    }
+
+
+    void PlaceWeapon()
+    {
+        if (weapon.GetWType() == WeaponType.Gun)
+        {
+            weapon.transform.position = gunPos.transform.position;
+        }
+
+        else if (weapon.GetWType() == WeaponType.Bat)
+        {
+            weapon.transform.position = batPos.transform.position;
         }
     }
 

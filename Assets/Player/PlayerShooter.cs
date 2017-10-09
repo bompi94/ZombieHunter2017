@@ -9,12 +9,6 @@ public class PlayerShooter : Shooter
     GameObject bullseye;
 
     [SerializeField]
-    GameObject gunPos;
-
-    [SerializeField]
-    GameObject batPos;
-
-    [SerializeField]
     float throwSpeed;
 
     int minimumNumberOfCasualBullets = 2;
@@ -33,11 +27,6 @@ public class PlayerShooter : Shooter
 
     private void Update()
     {
-        if (Armed())
-        {
-            PlaceWeapon();
-        }
-
         if (Input.GetButtonDown("Fire1"))
         {
             ManageLeftClick();
@@ -47,21 +36,6 @@ public class PlayerShooter : Shooter
         {
             ManageRightClick();
         }
-    }
-
-    void PlaceWeapon()
-    {
-        if (weapon.GetWType() == WeaponType.Gun)
-        {
-            weapon.transform.position = gunPos.transform.position;
-        }
-
-        else if (weapon.GetWType() == WeaponType.Bat)
-        {
-            weapon.transform.position = batPos.transform.position;
-        }
-
-        //bullseye.transform.localPosition = weapon.transform.localPosition + new Vector3(0, 1f, 0);
     }
 
     void ManageLeftClick()
@@ -100,14 +74,12 @@ public class PlayerShooter : Shooter
 
     void ThrowGun()
     {
-        weapon.Throw(aim.transform.position - weapon.transform.position, throwSpeed);
+        weapon.Throw(aim.transform.position - transform.position, throwSpeed);
         LeaveWeapon();
     }
 
     public override void PickWeapon(Weapon weapon)
     {
-        print("pick weapon in player shooter"); 
-
         base.PickWeapon(weapon);
 
         //TODO this is horrible

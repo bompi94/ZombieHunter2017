@@ -27,21 +27,25 @@ public class EnemyShooter : Shooter
 
         if (HasWeapon())
         {
-            if (PlayerInSight())
-            {
-                reflexesTimer += TimeManager.deltaTime;
-                Aim();
-                if (canUseWeapon && player && reflexesTimer >= reflexesTime)
-                {
-                    UseWeapon();
-                }
-            }
+            TryToHitPlayer();
+        }
+    }
 
-            else
+    private void TryToHitPlayer()
+    {
+        if (PlayerInSight())
+        {
+            reflexesTimer += TimeManager.deltaTime;
+            Aim();
+            if (canUseWeapon && player && reflexesTimer >= reflexesTime)
             {
-                reflexesTimer = 0;
+                UseWeapon();
             }
+        }
 
+        else
+        {
+            reflexesTimer = 0;
         }
     }
 
@@ -79,11 +83,9 @@ public class EnemyShooter : Shooter
         return false;
     }
 
-
     float GetToPlayerRotationAngle()
     {
         float angle = 0;
-
         if (player)
         {
             Vector3 v = transform.position - player.transform.position;

@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyHealth : Health {
-
-    EnemySpawner spawner; 
+public class EnemyHealth : Health
+{
 
     protected override void Die()
     {
-        spawner = FindObjectOfType<EnemySpawner>();
-        spawner.EnemyDead();
+        EnemySpawner spawner = FindObjectOfType<EnemySpawner>();
+        if (spawner)
+            spawner.EnemyDead();
 
-        FindObjectOfType<ScoreManager>().IncreaseScore(); 
+        ScoreManager scoreManager = FindObjectOfType<ScoreManager>();
+        if (scoreManager)
+            scoreManager.IncreaseScore();
 
         GetComponent<Explosion>().Explode();
         GetComponent<EnemyShooter>().LeaveWeapon();

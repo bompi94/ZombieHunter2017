@@ -17,6 +17,18 @@ public class Weapon : MonoBehaviour
     protected bool throwed = false;
     protected Vector3 throwdir = Vector3.zero;
 
+    protected virtual void Awake()
+    {
+        TimeManager.Instance.tick.AddListener(TimedUpdate);
+    }
+
+    protected virtual void TimedUpdate()
+    {
+        if (throwed)
+        {
+            transform.position += throwdir * throwSpeed * TimeManager.deltaTime;
+        }
+    }
 
     public void SetRotation(float angle)
     {
@@ -42,7 +54,7 @@ public class Weapon : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void PickedUp(Shooter shooter)
+    public virtual void PickedUp(Shooter shooter)
     {
         pickedUp = true;
         this.shooter = shooter;
@@ -57,6 +69,19 @@ public class Weapon : MonoBehaviour
             GetComponent<Collider2D>().isTrigger = true;
     }
 
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
+    {
+        EnemyShooter es = collision.gameObject.GetComponent<EnemyShooter>();
+        if (throwed && (es || collision.gameObject.name.StartsWith("wall")))
+        {
+            if (es)
+            {
+                es.HitByAPunch(throwdir);
+            }
+            GunBreak();
+        }
+    }
+
     public bool CanBePicked()
     {
         return !pickedUp && !throwed;
@@ -64,6 +89,7 @@ public class Weapon : MonoBehaviour
 
     public void Throw(Vector3 dir, float throwSpeed)
     {
+        transform.position = shooter.transform.position; 
         this.throwdir = dir;
         this.throwSpeed = throwSpeed;
         throwed = true;

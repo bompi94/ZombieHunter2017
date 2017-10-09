@@ -19,20 +19,11 @@ public class Gun : Weapon
 
     protected ObjectPooler bulletPooler;
 
-
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake(); 
         bulletPooler = FindObjectOfType<ObjectPooler>();
         actualBullets = bullets;
-        TimeManager.Instance.tick.AddListener(TimedUpdate);
-    }
-
-    void TimedUpdate()
-    {
-        if (throwed)
-        {
-            transform.position += throwdir * throwSpeed * TimeManager.deltaTime;
-        }
     }
 
     public override void Use()
@@ -77,19 +68,6 @@ public class Gun : Weapon
     public int GetNumberOfBullets()
     {
         return actualBullets;
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        EnemyShooter es = collision.gameObject.GetComponent<EnemyShooter>();
-        if (throwed && (es || collision.gameObject.name.StartsWith("wall")))
-        {
-            if (es)
-            {
-                es.HitByAPunch(throwdir);
-            }
-            GunBreak();
-        }
     }
 
     public void SetNumberOfBullets(int numberOfBullets)

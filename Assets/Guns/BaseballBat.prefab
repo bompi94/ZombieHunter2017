@@ -20,8 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4522672660750184}
   - component: {fileID: 212220731131814014}
-  - component: {fileID: 114464841174463762}
-  - component: {fileID: 114576163144657488}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -38,6 +36,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4482599373798082}
   - component: {fileID: 61065636070592258}
+  - component: {fileID: 114552493967340062}
+  - component: {fileID: 114936267905265894}
   m_Layer: 0
   m_Name: BaseballBat
   m_TagString: Untagged
@@ -52,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1992739467652322}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -10.64, y: 3.58, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children:
   - {fileID: 4522672660750184}
@@ -81,7 +81,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.014301926, y: 0.5339375}
@@ -97,28 +97,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.13235146, y: 1.0762771}
   m_EdgeRadius: 0
---- !u!114 &114464841174463762
+--- !u!114 &114552493967340062
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1255011369531594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 090b765807d56c8409b01fa9f3502ea8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114576163144657488
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1255011369531594}
+  m_GameObject: {fileID: 1992739467652322}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0638663eecbded4e9d6a36ed34c639b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114936267905265894
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1992739467652322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 090b765807d56c8409b01fa9f3502ea8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swingSpeed: 15
+  sign: -1
 --- !u!212 &212220731131814014
 SpriteRenderer:
   m_ObjectHideFlags: 1

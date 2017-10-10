@@ -453,7 +453,7 @@ GameObject:
   - component: {fileID: 729413309}
   - component: {fileID: 729413308}
   m_Layer: 5
-  m_Name: HalloweenHatButton
+  m_Name: HatButton2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -915,9 +915,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'HALLOWEEN HAT
-
-'
+  m_Text: HAT 2
 --- !u!222 &1552487006
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1010,7 +1008,7 @@ GameObject:
   - component: {fileID: 1662986214}
   - component: {fileID: 1662986213}
   m_Layer: 5
-  m_Name: BatmanHatButton
+  m_Name: HatButton3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1232,7 +1230,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'BATMAN HAT
+  m_Text: 'HAT 3
 
 '
 --- !u!222 &1754396711
@@ -1253,7 +1251,7 @@ GameObject:
   - component: {fileID: 1902727273}
   - component: {fileID: 1902727272}
   m_Layer: 5
-  m_Name: TigerHatButton
+  m_Name: HatButton1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1506,7 +1504,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'TIGER HAT
+  m_Text: 'HAT 1
 
 '
 --- !u!222 &2061123200

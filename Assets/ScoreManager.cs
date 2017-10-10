@@ -9,11 +9,21 @@ public class ScoreManager : MonoBehaviour {
     Text scoreText;
 
     [SerializeField]
-    Text bestScoreText; 
+    Text bestScoreText;
+
+    [SerializeField]
+    GameObject unlockedHatPanel;
+
+    float unlockedHatTime = 1;
+    float unlockedHatTimer = 0;
+    bool unlocked; 
 
     int score = 0;
 
     int bestScore;
+
+    [SerializeField]
+    bool deleter; 
 
     const string bestScoreKey = "BestScore";
 
@@ -21,9 +31,24 @@ public class ScoreManager : MonoBehaviour {
 
     private void Awake()
     {
+        if (deleter)
+            PlayerPrefs.DeleteAll(); 
         bestScore = PlayerPrefs.GetInt(bestScoreKey);
         UpdateBestScoreUI();
         n = PlayerPrefs.GetInt("HatNumber");
+    }
+
+    private void Update()
+    {
+        if (unlocked)
+        {
+            unlockedHatTimer += Time.deltaTime;
+            if (unlockedHatTimer >= unlockedHatTime)
+            {
+                unlockedHatPanel.SetActive(false);
+                unlocked = false; 
+            }
+        }
     }
 
     public void IncreaseScore()
@@ -35,20 +60,20 @@ public class ScoreManager : MonoBehaviour {
 
     void CheckHatUnlock()
     {
-        if(score >= 5 && n == 0)
+        if(score >= 10 && n == 0)
         {
             PlayerPrefs.SetInt("HatNumber", 1);
             n = 1;
             UnlockedHat();
         }
 
-        else if(score >= 10 && n <= 1)
+        else if(score >= 20 && n <= 1)
         {
             PlayerPrefs.SetInt("HatNumber", 2);
             n = 2;
             UnlockedHat();
         }
-        else if (score >= 15 && n <= 2)
+        else if (score >= 30 && n <= 2)
         {
             PlayerPrefs.SetInt("HatNumber", 3);
             n = 3;
@@ -58,7 +83,8 @@ public class ScoreManager : MonoBehaviour {
 
     void UnlockedHat()
     {
-        print("unlocked hat!"); 
+        unlocked = true;
+        unlockedHatPanel.SetActive(true);
     }
 
     public void GameEnded()

@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 33102937852308738}
   - component: {fileID: 23667283521380492}
   m_Layer: 0
-  m_Name: TigerHat
+  m_Name: Hat1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1008347469416272}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.28, z: 765}
+  m_LocalPosition: {x: 0, y: 0.28, z: 275}
   m_LocalScale: {x: 0.799687, y: 0.8623215, z: 0.2825107}
   m_Children: []
   m_Father: {fileID: 4505804262484692}
@@ -65,7 +65,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1602582204076952}
   m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalPosition: {x: -11.49, y: 5.2, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 0.0001}
   m_Children:
   - {fileID: 4430928146332958}
@@ -85,7 +85,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 9ee2b97ea6f10f2489fda57a87956caa, type: 2}
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

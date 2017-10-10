@@ -52,7 +52,8 @@ public class HatManager : MonoBehaviour
         {
             GameObject go = Instantiate(hats[(int)selectedHat - 1], Vector3.zero, Quaternion.identity);
             go.transform.SetParent(GameObject.Find("Player").transform);
-            go.transform.localPosition = new Vector3(0, 0, go.transform.localPosition.z);
+            go.transform.localPosition = new Vector3(0, 0, -0.1f);
+            go.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 180)); 
         }
 
         else

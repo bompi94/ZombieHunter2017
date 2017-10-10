@@ -66,4 +66,9 @@ public class HatManager : MonoBehaviour
     {
         return hats[pos-1]; 
     }
+
+    public int GetSelectedHat()
+    {
+        return (int)selectedHat; 
+    }
 }

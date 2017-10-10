@@ -25,12 +25,24 @@ public class HatButtonsListener : MonoBehaviour
         int n = PlayerPrefs.GetInt(hatNumberKey);
 
         for (int i = 0; i <= n; i++)
+        {
             buttons[i].SetActive(true);
+            if(hatManager.GetSelectedHat() == i)
+            {
+                buttons[i].GetComponent<Image>().color = Color.yellow; 
+            }
+        }
 
     }
     public void SelectHat(int hatType)
     {
+        foreach (var g in buttons)
+        {
+            g.GetComponent<Image>().color = Color.white; 
+        }
+
         hatManager.SelectHat((HatType)hatType);
+        buttons[hatManager.GetSelectedHat()].GetComponent<Image>().color = Color.yellow;
     }
 }
 

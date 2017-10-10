@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HatButtonsListener : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class HatButtonsListener : MonoBehaviour
     public GameObject[] buttons;
 
     const string hatNumberKey = "HatNumber";
+
 
     private void Awake()
     {
@@ -23,14 +25,15 @@ public class HatButtonsListener : MonoBehaviour
         int n = PlayerPrefs.GetInt(hatNumberKey);
 
         for (int i = 0; i <= n; i++)
-        {
             buttons[i].SetActive(true);
-        }
-    }
 
+    }
     public void SelectHat(int hatType)
     {
-        hatManager.SelectHat((HatType)hatType); 
+        hatManager.SelectHat((HatType)hatType);
     }
-
 }
+
+
+
+

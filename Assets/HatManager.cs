@@ -61,4 +61,9 @@ public class HatManager : MonoBehaviour
             print("i shoul spawn nothing");
         }
     }
+
+    public GameObject GetHat(int pos)
+    {
+        return hats[pos-1]; 
+    }
 }

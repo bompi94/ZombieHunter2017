@@ -46,7 +46,8 @@ public class ScoreManager : MonoBehaviour {
             if (unlockedHatTimer >= unlockedHatTime)
             {
                 unlockedHatPanel.SetActive(false);
-                unlocked = false; 
+                unlocked = false;
+                unlockedHatTimer = 0; 
             }
         }
     }
@@ -60,21 +61,28 @@ public class ScoreManager : MonoBehaviour {
 
     void CheckHatUnlock()
     {
-        if(score >= 10 && n == 0)
+        if(score == 10 && n == 0)
         {
+            print("hat unlock");
+
             PlayerPrefs.SetInt("HatNumber", 1);
             n = 1;
             UnlockedHat();
         }
 
-        else if(score >= 20 && n <= 1)
+        if(score == 20 && n == 1)
         {
+            print("hat unlock");
+
             PlayerPrefs.SetInt("HatNumber", 2);
             n = 2;
             UnlockedHat();
         }
-        else if (score >= 30 && n <= 2)
+
+        if (score == 30 && n == 2)
         {
+            print("hat unlock");
+
             PlayerPrefs.SetInt("HatNumber", 3);
             n = 3;
             UnlockedHat();

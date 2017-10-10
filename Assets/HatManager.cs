@@ -14,38 +14,22 @@ public class HatManager : MonoBehaviour
     [SerializeField]
     GameObject[] hats;
 
-    [SerializeField]
-    GameObject[] buttons;
-
     public static HatManager Instance;
-
-    const string hatNumberKey = "HatNumber";
 
     HatType selectedHat;
 
-    private void Start()
+    private void Awake()
     {
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-        SceneManager.activeSceneChanged += SceneChanged;
-        SelectButtonsToShow();
-    }
-
-
-    void SelectButtonsToShow()
-    {
-        int n = PlayerPrefs.GetInt(hatNumberKey);
-
-        for (int i = 0; i < n; i++)
+        if (Instance == null)
         {
-            buttons[i].SetActive(true);
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            SceneManager.activeSceneChanged += SceneChanged;
         }
-    }
-
-    public void SelectHat(int type)
-    {
-        selectedHat = (HatType)type;
-        print(selectedHat);
+        else if(Instance!=this)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void SceneChanged(Scene from, Scene to)
@@ -55,6 +39,11 @@ public class HatManager : MonoBehaviour
             print("scene changed with " + selectedHat);
             SpawnHat();
         }
+    }
+
+    public void SelectHat(HatType hatType)
+    {
+        selectedHat = hatType; 
     }
 
     void SpawnHat()

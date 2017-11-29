@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class TimeManager : MonoBehaviour
 {
-
     [SerializeField]
     float slowTimeScale;
 
@@ -15,7 +14,7 @@ public class TimeManager : MonoBehaviour
     [HideInInspector]
     public UnityEvent tick = new UnityEvent();
 
-    float scale;
+    float timeScale;
     float timer;
 
     const float normalFrameTime = 0.01666667f; //60fps
@@ -29,22 +28,25 @@ public class TimeManager : MonoBehaviour
 
     private void Awake()
     {
-        scale = slowTimeScale;
+        timeScale = slowTimeScale;
         Instance = this;
+    }
+
+    public void RegisterBehaviour(UnityEngine.Events.UnityAction method)
+    {
+        tick.AddListener(method);
     }
 
     public void SlowTime()
     {
-        scale = slowTimeScale;
-        Time.fixedDeltaTime = normalFixedDeltaTime * scale;
-
+        timeScale = slowTimeScale;
+        Time.fixedDeltaTime = normalFixedDeltaTime * timeScale;
     }
 
     public void FastTime()
     {
-        scale = fastTimeScale;
-        Time.fixedDeltaTime = normalFixedDeltaTime * scale;
-
+        timeScale = fastTimeScale;
+        Time.fixedDeltaTime = normalFixedDeltaTime * timeScale;
     }
 
     public void Impulse()
@@ -74,14 +76,7 @@ public class TimeManager : MonoBehaviour
     {
         while (true)
         {
-            //probably this can be done like 
-            //waitfor(extremelysmalltime)
-            //counter+=extremelysmalltime
-            //if(counter>deltatime)
-            //counter = 0
-            //tick.invoke
-            //this should adapt nicely to continuous time scale change
-            deltaTime = normalFrameTime * scale;
+            deltaTime = normalFrameTime * timeScale;
             yield return new WaitForSeconds(deltaTime);
             tick.Invoke();
         }
@@ -89,6 +84,6 @@ public class TimeManager : MonoBehaviour
 
     public float GetScale()
     {
-        return scale;
+        return timeScale;
     }
 }

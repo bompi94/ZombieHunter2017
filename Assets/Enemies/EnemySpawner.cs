@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : TimedMonoBehaviour
 {
 
     float spawnTime = 0;
@@ -23,9 +23,8 @@ public class EnemySpawner : MonoBehaviour
 
     GameObject player;
 
-    private void Awake()
+    protected void Awake()
     {
-        TimeManager.Instance.tick.AddListener(TimedUpdate);
         player = FindObjectOfType<PlayerMovement>().gameObject;
         InitialSpawn();
     }
@@ -40,7 +39,7 @@ public class EnemySpawner : MonoBehaviour
         initialSpawnDone = true;
     }
 
-    void TimedUpdate()
+    protected override void TimeManagerUpdate()
     {
         if (initialSpawnDone)
         {
@@ -56,7 +55,8 @@ public class EnemySpawner : MonoBehaviour
     void Spawn()
     {
         Vector3 pos = GetSpawnPosition();
-        Instantiate(ChooseEnemy(), pos, Quaternion.identity);
+        GameObject enemy = ChooseEnemy(); 
+        Instantiate(enemy, pos, Quaternion.identity);
         numberOfEnemies++;
         UpdateSpawnTime();
     }

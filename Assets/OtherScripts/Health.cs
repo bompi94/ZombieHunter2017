@@ -20,11 +20,6 @@ public class Health : MonoBehaviour {
         hp = startingHP;
     }
 
-    private void Start()
-    {
-        healthChanged.Invoke();
-    }
-
     public void TakeDamage(int amount)
     {
         if (canBeDamaged)
